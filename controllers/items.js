@@ -22,7 +22,7 @@ exports.getItems = asyncHandler(async(req, res, next) => {
 
 // @desc   Get logged in user items
 // @route  GET api/v1/items/me
-// @access Private
+// @access Pivater
 exports.getLoggedInUserItems = asyncHandler(async(req, res, next) => {
 
     const items = await Item.find({
@@ -99,8 +99,6 @@ exports.addItem = asyncHandler(async(req, res, next) => {
 
     req.body.user = req.user.id;
 
-
-
     const item = await Item.create(req.body);
 
 
@@ -134,6 +132,12 @@ exports.updateItem = asyncHandler(async(req, res, next) => {
     }
 
 
+    //Make sure that authorized to update item
+    if (item.user.toString() !== req.user.id) {
+        return next(new ErrorResponse('Not authorzied to update this item', 401));
+    }
+
+
 
     item = await Item.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -153,6 +157,44 @@ exports.updateItem = asyncHandler(async(req, res, next) => {
 
 })
 
+
+
+
+// @desc   Delete item by it's id
+// @route  DELETE api/v1/items/:id
+// @access Private
+exports.deleteItem = asyncHandler(async(req, res, next) => {
+
+
+    const item = await Item.findById(req.params.id);
+
+
+
+
+    if (!item) {
+        return next(new ErrorResponse(`Item with id of ${req.params.id} not found`, 404));
+    }
+
+
+    //Make sure that authorized to update item
+    if (item.user.toString() !== req.user.id) {
+        return next(new ErrorResponse('Not authorzied to delete this item', 401));
+    }
+
+
+
+
+    await Item.findByIdAndDelete(req.params.id);
+
+
+
+    res.status(200).json({
+        success: true,
+        data: {}
+    })
+
+})
+
 // @desc   Upload item photo
 // @route  PUT api/v1/items/id/photo
 // @access Private
@@ -165,6 +207,13 @@ exports.uploadItemPhoto = asyncHandler(async(req, res, next) => {
     if (!item) {
         return next(new ErrorResponse(`Item with id of ${req.params.id} not found`, 404));
     }
+
+
+    //Make sure that authorized to update item
+    if (item.user.toString() !== req.user.id) {
+        return next(new ErrorResponse('Not authorized to update this item', 401));
+    }
+
 
 
     //Check if photo has been uploaded
@@ -208,37 +257,3 @@ exports.uploadItemPhoto = asyncHandler(async(req, res, next) => {
     });
 
 })
-
-
-
-// @desc   Delete item by it's id
-// @route  DELETE api/v1/items/:id
-// @access Private
-exports.deleteItem = async(req, res, next) => {
-    try {
-
-        const item = await Item.findById(req.params.id);
-
-
-
-
-        if (!item) {
-            return next(new ErrorResponse(`Item with id of ${req.params.id} not found`, 404));
-        }
-
-
-
-        await Item.findByIdAndDelete(req.params.id);
-
-
-
-        res.status(200).json({
-            success: true,
-            data: {}
-        })
-
-
-    } catch (err) {
-        next(err);
-    }
-}
