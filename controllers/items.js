@@ -25,6 +25,16 @@ exports.getItems = asyncHandler(async(req, res, next) => {
 // @access Private
 exports.getLoggedInUserItems = asyncHandler(async(req, res, next) => {
 
+    const items = await Item.find({
+        user: req.user.id
+    })
+
+
+
+    res.status(200).json({
+        success: true,
+        data: items
+    })
 })
 
 
@@ -56,29 +66,26 @@ exports.getOnSellItems = asyncHandler(async(req, res, next) => {
 // @desc   Get single item by it's ID
 // @route  GET api/v1/items/:id
 // @access Public
-exports.getItem = async(req, res, next) => {
-    try {
-
-        const item = await Item.findById(req.params.id);
+exports.getItem = asyncHandler(async(req, res, next) => {
 
 
-
-        if (!item) {
-            return next(new ErrorResponse(`Item with id of ${req.params.id} not found`, 404));
-        }
+    const item = await Item.findById(req.params.id);
 
 
 
-        res.status(200).json({
-            success: true,
-            data: item
-        })
-
-
-    } catch (err) {
-        next(err);
+    if (!item) {
+        return next(new ErrorResponse(`Item with id of ${req.params.id} not found`, 404));
     }
-}
+
+
+
+    res.status(200).json({
+        success: true,
+        data: item
+    })
+});
+
+
 
 
 
@@ -87,25 +94,26 @@ exports.getItem = async(req, res, next) => {
 // @desc   Add new item to database
 // @route  POST api/v1/items
 // @access Private
-exports.addItem = async(req, res, next) => {
-    try {
-
-        const item = await Item.create(req.body);
+exports.addItem = asyncHandler(async(req, res, next) => {
 
 
+    req.body.user = req.user.id;
 
 
 
-        res.status(200).json({
-            success: true,
-            data: item
-        })
+    const item = await Item.create(req.body);
 
 
-    } catch (err) {
-        next(err);
-    }
-}
+
+
+
+    res.status(200).json({
+        success: true,
+        data: item
+    })
+
+
+})
 
 
 
@@ -113,39 +121,37 @@ exports.addItem = async(req, res, next) => {
 // @desc   Update item by it's id
 // @route  PUT api/v1/items/:id
 // @access Private
-exports.updateItem = async(req, res, next) => {
-    try {
-
-        let item = await Item.findById(req.params.id);
+exports.updateItem = asyncHandler(async(req, res, next) => {
 
 
-
-
-        if (!item) {
-            return next(new ErrorResponse(`Item with id of ${req.params.id} not found`, 404));
-        }
-
-
-
-        item = await Item.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        })
+    let item = await Item.findById(req.params.id);
 
 
 
 
-
-        res.status(200).json({
-            success: true,
-            data: item
-        })
-
-
-    } catch (err) {
-        next(err);
+    if (!item) {
+        return next(new ErrorResponse(`Item with id of ${req.params.id} not found`, 404));
     }
-}
+
+
+
+    item = await Item.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    })
+
+
+
+
+
+    res.status(200).json({
+        success: true,
+        data: item
+    })
+
+
+
+})
 
 // @desc   Upload item photo
 // @route  PUT api/v1/items/id/photo

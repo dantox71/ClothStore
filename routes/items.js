@@ -4,6 +4,7 @@ const router = express.Router();
 const {
     getItems,
     getOnSellItems,
+    getLoggedInUserItems,
     getItem,
     addItem,
     updateItem,
@@ -16,17 +17,13 @@ const Item = require('../models/Item');
 
 
 const advancedResults = require('../middleware/advancedResults');
+const { protect } = require('../middleware/auth');
 
-router.route('/').get(advancedResults(Item), getItems).post(addItem);
-
+router.route('/').get(advancedResults(Item), getItems).post(protect, addItem);
 router.route('/onsell').get(getOnSellItems);
-
-
-router.route('/:id').get(getItem).put(updateItem).delete(deleteItem);
-
-
-
-router.route('/:id/photo').put(uploadItemPhoto);
+router.route('/me').get(protect, getLoggedInUserItems);
+router.route('/:id').get(getItem).put(protect, updateItem).delete(protect, deleteItem);
+router.route('/:id/photo').put(protect, uploadItemPhoto);
 
 
 
