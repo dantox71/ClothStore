@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
     money: {
         type: Number,
         default: 100
-    }
+    },
 
     email: {
         type: String,
