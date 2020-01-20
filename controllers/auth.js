@@ -51,6 +51,54 @@ exports.getMe = asyncHandler(async(req, res, next) => {
 
 
 
+// @desc   Update user data
+// @route  PUT api/v1/auth/data
+// @access Private
+exports.updateUserData = asyncHandler(async(req, res, next) => {
+
+    const { name, email } = req.body;
+    const fieldsToUpdate = {};
+
+
+    if (name) {
+        fieldsToUpdate.name = name;
+    }
+
+    if (email) {
+        fieldsToUpdate.email = email;
+    }
+
+
+    let user = await User.findOne({ email });
+
+
+
+
+    if (user) {
+        return next(new ErrorResponse(`Email already taken`, 400));
+    }
+
+
+
+    user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
+        new: true,
+        runValidators: true
+    });
+
+
+
+
+    res.status(200).json({
+        success: true,
+        data: user
+    })
+
+
+});
+
+
+
+
 
 // @desc   Upload user photo
 // @route  PUT api/v1/auth/me/photo
@@ -168,8 +216,5 @@ const sendTokenResponse = async(user, statusCode, res) => {
         success: true,
         token: token
     })
-
-
-
 
 }
