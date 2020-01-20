@@ -40,6 +40,12 @@ const ItemSchema = new mongoose.Schema({
     },
 
 
+    incart: {
+        type: Boolean,
+        default: false
+    },
+
+
     image: {
         type: String,
         default: 'item-image.jpg'
