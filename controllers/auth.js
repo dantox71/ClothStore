@@ -126,7 +126,7 @@ exports.login = asyncHandler(async(req, res, next) => {
 
 
     if (!user) {
-        return next(new ErrorResponse(`Invalid ACredentials`, 400));
+        return next(new ErrorResponse(`Invalid Credentials`, 400));
     }
 
 
