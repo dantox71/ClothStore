@@ -23,7 +23,8 @@ const ItemSchema = new mongoose.Schema({
 
     category: {
         type: String,
-        enum: ['shirts', 'hoodies', 'shoes', 'trousers']
+        enum: ['shirts', 'hoodies', 'shoes', 'trousers'],
+        required: [true, 'Please add item category']
     },
 
 
@@ -42,6 +43,12 @@ const ItemSchema = new mongoose.Schema({
     image: {
         type: String,
         default: 'item-image.jpg'
+    },
+
+
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
     }
 
 })
