@@ -12,6 +12,12 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please add a name']
     },
 
+
+    money: {
+        type: Number,
+        default: 100
+    }
+
     email: {
         type: String,
         unique: true,
