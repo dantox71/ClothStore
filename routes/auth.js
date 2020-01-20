@@ -6,7 +6,8 @@ const {
     getMe,
     login,
     uploadUserPhoto,
-    updateUserData
+    updateUserData,
+    updateUserPassword
 } = require('../controllers/auth');
 
 
@@ -22,5 +23,6 @@ router.route('/login').post(login);
 router.route('/me').get(protect, getMe);
 router.route('/me/photo').put(protect, uploadUserPhoto);
 router.route('/me/data').put(protect, updateUserData);
+router.route('/me/password').put(protect, updateUserPassword);
 
 module.exports = router;

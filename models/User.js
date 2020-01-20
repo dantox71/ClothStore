@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter password'],
         select: false,
-        min: 8,
+        min: 6,
         max: 21
     },
 

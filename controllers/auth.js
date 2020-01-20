@@ -50,6 +50,41 @@ exports.getMe = asyncHandler(async(req, res, next) => {
 });
 
 
+// @desc   Authorize user
+// @route  POST api/v1/auth/login
+// @access Public
+exports.login = asyncHandler(async(req, res, next) => {
+
+
+    const user = await User.findOne({ email: req.body.email }).select('+password');
+
+
+
+    if (!user) {
+        return next(new ErrorResponse(`Invalid Credentials`, 400));
+    }
+
+
+    //Check if password is correct
+    const isMatch = await user.matchPassword(req.body.password);
+
+
+
+    if (!isMatch) {
+        return next(new ErrorResponse(`Invalid Credentials`, 400));
+    }
+
+
+
+    sendTokenResponse(user, 200, res);
+
+})
+
+
+
+
+
+
 
 // @desc   Update user data
 // @route  PUT api/v1/auth/data
@@ -95,6 +130,54 @@ exports.updateUserData = asyncHandler(async(req, res, next) => {
 
 
 });
+
+
+
+
+
+// @desc   Update user password
+// @route  PUT api/v1/auth/password
+// @access Private
+exports.updateUserPassword = asyncHandler(async(req, res, next) => {
+
+    const { currentPassword, newPassword } = req.body;
+
+
+    const user = await User.findById(req.user.id).select('+password');
+
+
+
+    const isMatch = await user.matchPassword(currentPassword);
+
+    console.log(isMatch);
+
+
+    if (!isMatch) {
+        return next(new ErrorResponse('Current password is incorrect'));
+    }
+
+
+    user.password = newPassword;
+
+
+    await user.save();
+
+
+
+    res.status(200).json({
+        success: true,
+        data: 'Password changed'
+    })
+
+
+
+
+
+});
+
+
+
+
 
 
 
@@ -151,38 +234,6 @@ exports.uploadUserPhoto = asyncHandler(async(req, res, next) => {
 
 });
 
-
-
-
-// @desc   Authorize user
-// @route  POST api/v1/auth/login
-// @access Public
-exports.login = asyncHandler(async(req, res, next) => {
-
-
-    const user = await User.findOne({ email: req.body.email }).select('+password');
-
-
-
-    if (!user) {
-        return next(new ErrorResponse(`Invalid Credentials`, 400));
-    }
-
-
-    //Check if password is correct
-    const isMatch = await user.matchPassword(req.body.password);
-
-
-
-    if (!isMatch) {
-        return next(new ErrorResponse(`Invalid Credentials`, 400));
-    }
-
-
-
-    sendTokenResponse(user, 200, res);
-
-})
 
 
 
