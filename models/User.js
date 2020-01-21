@@ -40,12 +40,16 @@ const UserSchema = new mongoose.Schema({
     image: {
         type: String,
         default: 'user-image.jpg'
+    },
+
+
+
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
+
 })
-
-
-
-
 
 
 
@@ -57,18 +61,18 @@ UserSchema.methods.getJsonWebToken = function() {
 }
 
 
-
-
 UserSchema.methods.matchPassword = async function(enteredPassword) {
-
 
     return await bcrypt.compare(enteredPassword, this.password);
 }
 
-
 //Hash user password before saving in database
 UserSchema.pre('save', async function(next) {
 
+
+    if (!this.isModified('password')) {
+        next();
+    }
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(this.password, salt);
