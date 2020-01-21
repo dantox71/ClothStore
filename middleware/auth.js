@@ -8,8 +8,10 @@ const ErrorResponse = require('../utils/errorResponse');
 exports.protect = asyncHandler(async(req, res, next) => {
     let token;
 
+    console.log(req.cookies);
+
     //Check if auth header exists & is correctly formatted
-    if (req.headers.authorization || req.headers.authorization.startsWith('Bearer')) {
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
     } else if (req.cookies.token) {
         token = req.cookies.token;

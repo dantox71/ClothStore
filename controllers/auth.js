@@ -82,6 +82,33 @@ exports.login = asyncHandler(async(req, res, next) => {
 
 
 
+// @desc   Logout user & clear cookie
+// @route  GET api/v1/auth/logout
+// @access Private
+exports.logout = asyncHandler(async(req, res, next) => {
+
+
+
+    res.cookie('token', 'none', {
+        expires: new Date(Date.now() + 30 * 1000), // this token will expire after 30 seconds
+        httpOnly: true
+    })
+
+
+
+
+
+
+
+    res.status(200).json({
+        success: true,
+        data: 'logged out'
+    })
+
+
+});
+
+
 
 
 

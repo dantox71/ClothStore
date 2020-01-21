@@ -6,6 +6,7 @@ const colors = require('colors');
 const bodyParser = require('body-parser')
 const errorHandler = require('./middleware/error');
 const fileupload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 
 //Load enviroment variables
 dotenv.config({ path: './config/config.env' });
@@ -32,9 +33,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(fileupload());
-
-
-
+app.use(cookieParser());
 
 
 //Colors library init
@@ -43,14 +42,6 @@ colors.enable();
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -93,6 +84,5 @@ process.on('unhandledRejection', (result, promise) => {
 
     //Close server and exit processes
     server.close(() => process.exit(1));
-
 
 })

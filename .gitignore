@@ -3,3 +3,4 @@ node_modules
 _data
 ./models/User.js
 seeder.js
+client
