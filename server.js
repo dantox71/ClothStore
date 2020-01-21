@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const errorHandler = require('./middleware/error');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
 
 //Load enviroment variables
 dotenv.config({ path: './config/config.env' });
@@ -34,6 +35,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(fileupload());
 app.use(cookieParser());
+app.use(mongoSanitize());
 
 
 //Colors library init
@@ -55,6 +57,9 @@ app.get('/', (req, res) => {
 app.use('/api/v1/items', items);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/reviews', reviews);
+
+
+
 
 app.use(errorHandler);
 
