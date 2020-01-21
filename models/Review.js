@@ -17,8 +17,8 @@ const ReviewSchema = new mongoose.Schema({
     rate: {
         type: Number,
         required: [true, 'Please rate this item on a scale of 0 to 5 '],
-        min: 0,
-        max: 5
+        min: [0, '0 is minimum rating'],
+        max: [5, '5 is maximium rating']
     },
 
     createdAt: {
@@ -40,6 +40,51 @@ const ReviewSchema = new mongoose.Schema({
 
 
 })
+
+
+
+//Calculate average rating to item
+ReviewSchema.statics.getAverageRating = async function(itemId) {
+    const obj = await this.aggregate([{
+            $match: { item: itemId }
+        },
+        {
+            $group: {
+                _id: '$item',
+                averageRating: { $avg: '$rate' }
+            }
+        }
+    ]);
+
+
+
+    try {
+
+        await this.model('Item').findByIdAndUpdate(itemId, {
+            averageRating: Math.round(obj[0].averageRating)
+        });
+
+
+    } catch (err) {
+        console.log(err);
+    }
+
+}
+
+
+
+
+ReviewSchema.post('save', function() {
+    this.constructor.getAverageRating(this.item);
+});
+
+ReviewSchema.pre('remove', function() {
+
+    this.constructor.getAverageRating(this.item);
+});
+
+
+
 
 
 
