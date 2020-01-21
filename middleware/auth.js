@@ -6,17 +6,25 @@ const ErrorResponse = require('../utils/errorResponse');
 
 // @desc check if token exists and is correct 
 exports.protect = asyncHandler(async(req, res, next) => {
-
+    let token;
 
     //Check if auth header exists & is correctly formatted
-    if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer')) {
+    if (req.headers.authorization || req.headers.authorization.startsWith('Bearer')) {
+        token = req.headers.authorization.split(' ')[1];
+    } else if (req.cookies.token) {
+        token = req.cookies.token;
+    }
+
+
+
+
+    if (!token) {
         return next(new ErrorResponse(`Token not found.`, 401));
     }
 
 
 
 
-    const token = req.headers.authorization.split(' ')[1];
 
 
     try {
