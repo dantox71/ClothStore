@@ -52,11 +52,21 @@ const ItemSchema = new mongoose.Schema({
     },
 
 
+    averageRating: {
+        type: Number
+    },
+
+
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     }
 
 })
+
+
+
+
+
 
 module.exports = mongoose.model('Item', ItemSchema);
