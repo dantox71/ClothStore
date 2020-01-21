@@ -8,6 +8,7 @@ const errorHandler = require('./middleware/error');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 
 //Load enviroment variables
 dotenv.config({ path: './config/config.env' });
@@ -34,8 +35,12 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(fileupload());
+//Parse incoming cookies
 app.use(cookieParser());
+//NoSql injection protection
 app.use(mongoSanitize());
+//Security headers
+app.use(helmet());
 
 
 //Colors library init
