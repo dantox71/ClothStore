@@ -13,11 +13,23 @@ const {
 } = require('../controllers/items');
 
 
+const reviewRouter = require('./reviews');
+
+
+
+
+router.use('/:itemId/reviews', reviewRouter);
+
+
+
 const Item = require('../models/Item');
 
 
 const advancedResults = require('../middleware/advancedResults');
 const { protect } = require('../middleware/auth');
+
+
+
 
 router.route('/').get(advancedResults(Item), getItems).post(protect, addItem);
 router.route('/onsell').get(getOnSellItems);

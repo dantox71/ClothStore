@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 
 
-const ReviewSchema = new mongooseSchema({
+const ReviewSchema = new mongoose.Schema({
 
     text: {
         type: String,
@@ -20,8 +20,6 @@ const ReviewSchema = new mongooseSchema({
         min: 0,
         max: 5
     },
-
-
 
     createdAt: {
         type: Date,
@@ -42,3 +40,7 @@ const ReviewSchema = new mongooseSchema({
 
 
 })
+
+
+
+module.exports = mongoose.model('Review', ReviewSchema);

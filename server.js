@@ -14,6 +14,9 @@ dotenv.config({ path: './config/config.env' });
 
 const items = require('./routes/items');
 const auth = require('./routes/auth');
+const reviews = require('./routes/reviews');
+
+
 
 
 
@@ -60,8 +63,7 @@ app.get('/', (req, res) => {
 //Mount routes
 app.use('/api/v1/items', items);
 app.use('/api/v1/auth', auth);
-
-
+app.use('/api/v1/reviews', reviews);
 
 app.use(errorHandler);
 
