@@ -4,12 +4,15 @@ const connectDB = require('./config/db');
 const morgan = require('morgan');
 const colors = require('colors');
 const bodyParser = require('body-parser')
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
 const errorHandler = require('./middleware/error');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const xss = require('xss-clean');
+const cors = require('cors');
 
 //Load enviroment variables
 dotenv.config({ path: './config/config.env' });
@@ -44,6 +47,25 @@ app.use(mongoSanitize());
 app.use(helmet());
 //Prevent Cross-site-scripting attacs
 app.use(xss());
+
+//Enable cors
+app.use(cors());
+
+
+//Rate limiting 
+const limiter = rateLimit({
+    windowMs: 15 * 1000 * 60, // 15 minutes
+    max: 100
+})
+
+
+
+app.use(limiter);
+
+//Prevent http param pollution
+app.use(hpp());
+
+
 
 
 //Colors library init
