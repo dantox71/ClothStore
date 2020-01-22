@@ -41,6 +41,7 @@ const ItemSchema = new mongoose.Schema({
     incart: {
         type: Boolean,
         default: false
+
     },
 
 
@@ -53,6 +54,10 @@ const ItemSchema = new mongoose.Schema({
     averageRating: {
         type: Number
     },
+
+
+
+
 
 
     user: {

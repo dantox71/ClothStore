@@ -15,9 +15,16 @@ exports.register = asyncHandler(async(req, res, next) => {
 
     let user = await User.findOne({ email });
 
+
+
     if (user) {
         return next(new ErrorResponse(`Email already taken`, 400));
     }
+
+
+
+
+
 
 
 
@@ -26,6 +33,9 @@ exports.register = asyncHandler(async(req, res, next) => {
         email,
         password
     });
+
+
+
 
 
 
