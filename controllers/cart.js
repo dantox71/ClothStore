@@ -156,8 +156,7 @@ exports.buyItemsInCart = asyncHandler(async(req, res, next) => {
             $inc: { money: item.price }
         });
 
-        //Add money to owner of item that logged in user bought
-        await user.save();
+
 
         //Change owner of user & delete from cart
         item = await Item.findByIdAndUpdate(item._id, {
