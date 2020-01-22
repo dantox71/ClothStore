@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Review = require('./Review');
 
 
 
@@ -67,6 +68,16 @@ const ItemSchema = new mongoose.Schema({
 
 })
 
+
+
+//Delete all reviews of deleted item
+ItemSchema.pre('remove', async function(next) {
+
+    await Review.deleteMany({
+        item: this._id
+    })
+
+})
 
 
 
