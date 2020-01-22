@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 
 
+
 const UserSchema = new mongoose.Schema({
 
     name: {
@@ -42,6 +43,72 @@ const UserSchema = new mongoose.Schema({
         default: 'user-image.jpg'
     },
 
+    cart: [
+
+        {
+
+            name: {
+                type: String,
+                required: [true, 'Please add  item name']
+            },
+
+
+            description: {
+                type: String,
+                required: [true, 'Please add item description'],
+                min: 8,
+                max: 80
+            },
+
+
+            category: {
+                type: String,
+                enum: ['shirts', 'hoodies', 'shoes', 'trousers'],
+                required: [true, 'Please add item category']
+            },
+
+
+            price: {
+                type: Number,
+                required: [true, 'Please add item price']
+            },
+
+
+            onsell: {
+                type: Boolean,
+                default: false
+            },
+
+
+            incart: {
+                type: Boolean,
+                default: false
+
+            },
+
+
+            image: {
+                type: String,
+                default: 'item-image.jpg'
+            },
+
+
+            averageRating: {
+                type: Number
+            },
+
+
+
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'user'
+            }
+
+        }
+
+    ],
+
+
 
 
     createdAt: {
@@ -54,6 +121,7 @@ const UserSchema = new mongoose.Schema({
 
 
 
+
 UserSchema.methods.getJsonWebToken = function() {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE
@@ -62,14 +130,13 @@ UserSchema.methods.getJsonWebToken = function() {
 
 
 UserSchema.methods.matchPassword = async function(enteredPassword) {
-
     return await bcrypt.compare(enteredPassword, this.password);
 }
 
 //Hash user password before saving in database
 UserSchema.pre('save', async function(next) {
 
-
+    //Hash password only if modified
     if (!this.isModified('password')) {
         next();
     }
@@ -80,6 +147,7 @@ UserSchema.pre('save', async function(next) {
     this.password = hash;
 
 })
+
 
 
 
