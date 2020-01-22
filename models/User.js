@@ -76,13 +76,15 @@ const UserSchema = new mongoose.Schema({
 
             onsell: {
                 type: Boolean,
-                default: false
+                default: false,
+                select: false
             },
 
 
             incart: {
                 type: Boolean,
-                default: false
+                default: false,
+                select: false
 
             },
 
@@ -94,7 +96,8 @@ const UserSchema = new mongoose.Schema({
 
 
             averageRating: {
-                type: Number
+                type: Number,
+                select: false
             },
 
 
