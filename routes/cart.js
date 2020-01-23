@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const {
@@ -6,21 +6,15 @@ const {
     addItemToCart,
     removeItemFromCart,
     buyItemsInCart
-} = require('../controllers/cart');
+} = require("../controllers/cart");
 
+const { protect } = require("../middleware/auth");
 
-
-const { protect } = require('../middleware/auth');
-
-
-
-router.route('/').get(protect, getItemsFromCart);
-router.route('/buy').post(protect, buyItemsInCart);
-router.route('/:itemId').post(protect, addItemToCart).delete(protect, removeItemFromCart);
-
-
-
-
-
+router.route("/").get(protect, getItemsFromCart);
+router.route("/buy").post(protect, buyItemsInCart);
+router
+    .route("/:itemId")
+    .post(protect, addItemToCart)
+    .delete(protect, removeItemFromCart);
 
 module.exports = router;

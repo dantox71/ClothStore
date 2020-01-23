@@ -1,18 +1,12 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-
-
-
-
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema({
-
     name: {
         type: String,
-        required: [true, 'Please add a name']
+        required: [true, "Please add a name"]
     },
-
 
     money: {
         type: Number,
@@ -22,17 +16,16 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
-        required: [true, 'Please enter email address'],
+        required: [true, "Please enter email address"],
         match: [
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-            'Please enter correct email address'
+            "Please enter correct email address"
         ]
-
     },
 
     password: {
         type: String,
-        required: [true, 'Please enter password'],
+        required: [true, "Please enter password"],
         select: false,
         min: 6,
         max: 21
@@ -40,107 +33,81 @@ const UserSchema = new mongoose.Schema({
 
     image: {
         type: String,
-        default: 'user-image.jpg'
+        default: "user-image.jpg"
     },
 
-    cart: [
+    cart: [{
+        name: {
+            type: String,
+            required: [true, "Please add  item name"]
+        },
 
-        {
+        description: {
+            type: String,
+            required: [true, "Please add item description"],
+            min: 8,
+            max: 80
+        },
 
-            name: {
-                type: String,
-                required: [true, 'Please add  item name']
-            },
+        category: {
+            type: String,
+            enum: ["shirts", "hoodies", "shoes", "trousers"],
+            required: [true, "Please add item category"]
+        },
 
+        price: {
+            type: Number,
+            required: [true, "Please add item price"]
+        },
 
-            description: {
-                type: String,
-                required: [true, 'Please add item description'],
-                min: 8,
-                max: 80
-            },
+        onsell: {
+            type: Boolean,
+            default: false,
+            select: false
+        },
 
+        incart: {
+            type: Boolean,
+            default: false,
+            select: false
+        },
 
-            category: {
-                type: String,
-                enum: ['shirts', 'hoodies', 'shoes', 'trousers'],
-                required: [true, 'Please add item category']
-            },
+        image: {
+            type: String,
+            default: "item-image.jpg"
+        },
 
+        averageRating: {
+            type: Number,
+            select: false
+        },
 
-            price: {
-                type: Number,
-                required: [true, 'Please add item price']
-            },
-
-
-            onsell: {
-                type: Boolean,
-                default: false,
-                select: false
-            },
-
-
-            incart: {
-                type: Boolean,
-                default: false,
-                select: false
-
-            },
-
-
-            image: {
-                type: String,
-                default: 'item-image.jpg'
-            },
-
-
-            averageRating: {
-                type: Number,
-                select: false
-            },
-
-
-
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'user'
-            }
-
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user"
         }
-
-    ],
-
-
-
+    }],
 
     createdAt: {
         type: Date,
         default: Date.now
     }
-
-})
-
-
-
-
+});
 
 UserSchema.methods.getJsonWebToken = function() {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE
     });
-}
-
+};
 
 UserSchema.methods.matchPassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
-}
+};
 
 //Hash user password before saving in database
-UserSchema.pre('save', async function(next) {
-
+UserSchema.pre("save", async function(next) {
     //Hash password only if modified
-    if (!this.isModified('password')) {
+    if (!this.isModified("password")) {
         next();
     }
 
@@ -148,11 +115,6 @@ UserSchema.pre('save', async function(next) {
     const hash = await bcrypt.hash(this.password, salt);
 
     this.password = hash;
+});
 
-})
-
-
-
-
-
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);

@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const {
@@ -10,23 +10,20 @@ const {
     updateUserPassword,
     logout,
     deleteUser
-} = require('../controllers/auth');
+} = require("../controllers/auth");
 
+const User = require("../models/Item");
 
-const User = require('../models/Item');
+const { protect } = require("../middleware/auth");
 
-const { protect } = require('../middleware/auth');
+router.route("/register").post(register);
+router.route("/login").post(login);
+router.route("/logout").get(protect, logout);
+router.route("/delete").delete(protect, deleteUser);
 
-
-router.route('/register').post(register);
-router.route('/login').post(login);
-router.route('/logout').get(protect, logout);
-router.route('/delete').delete(protect, deleteUser);
-
-
-router.route('/me').get(protect, getMe);
-router.route('/me/photo').put(protect, uploadUserPhoto);
-router.route('/me/data').put(protect, updateUserData);
-router.route('/me/password').put(protect, updateUserPassword);
+router.route("/me").get(protect, getMe);
+router.route("/me/photo").put(protect, uploadUserPhoto);
+router.route("/me/data").put(protect, updateUserData);
+router.route("/me/password").put(protect, updateUserPassword);
 
 module.exports = router;

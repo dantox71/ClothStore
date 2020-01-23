@@ -1,12 +1,6 @@
-const mongoose = require('mongoose');
-
-
-
-
-
+const mongoose = require("mongoose");
 
 const connectDB = async() => {
-
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true,
@@ -14,12 +8,10 @@ const connectDB = async() => {
             useFindAndModify: false
         });
 
-        console.log('Database connected'.magenta);
+        console.log("Database connected".magenta);
     } catch (err) {
         console.log(err);
     }
-}
-
-
+};
 
 module.exports = connectDB;

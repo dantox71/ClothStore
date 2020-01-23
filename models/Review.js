@@ -1,24 +1,18 @@
-const mongoose = require('mongoose');
-
-
-
-
-
+const mongoose = require("mongoose");
 
 const ReviewSchema = new mongoose.Schema({
-
     text: {
         type: String,
-        required: [true, 'Please add some text'],
+        required: [true, "Please add some text"],
         min: 8,
         max: 50
     },
 
     rate: {
         type: Number,
-        required: [true, 'Please rate this item on a scale of 0 to 5 '],
-        min: [0, '0 is minimum rating'],
-        max: [5, '5 is maximium rating']
+        required: [true, "Please rate this item on a scale of 0 to 5 "],
+        min: [0, "0 is minimum rating"],
+        max: [5, "5 is maximium rating"]
     },
 
     createdAt: {
@@ -26,22 +20,16 @@ const ReviewSchema = new mongoose.Schema({
         default: Date.now
     },
 
-
     item: {
-        ref: 'Item',
+        ref: "Item",
         type: mongoose.Types.ObjectId
     },
 
-
     user: {
-        ref: 'User',
+        ref: "User",
         type: mongoose.Types.ObjectId
     }
-
-
-})
-
-
+});
 
 //Calculate average rating to item
 ReviewSchema.statics.getAverageRating = async function(itemId) {
@@ -50,42 +38,27 @@ ReviewSchema.statics.getAverageRating = async function(itemId) {
         },
         {
             $group: {
-                _id: '$item',
-                averageRating: { $avg: '$rate' }
+                _id: "$item",
+                averageRating: { $avg: "$rate" }
             }
         }
     ]);
 
-
-
     try {
-
-        await this.model('Item').findByIdAndUpdate(itemId, {
+        await this.model("Item").findByIdAndUpdate(itemId, {
             averageRating: Math.round(obj[0].averageRating)
         });
-
-
     } catch (err) {
         console.log(err);
     }
+};
 
-}
-
-
-
-
-ReviewSchema.post('save', function() {
+ReviewSchema.post("save", function() {
     this.constructor.getAverageRating(this.item);
 });
 
-ReviewSchema.pre('remove', function() {
-
+ReviewSchema.pre("remove", function() {
     this.constructor.getAverageRating(this.item);
 });
 
-
-
-
-
-
-module.exports = mongoose.model('Review', ReviewSchema);
+module.exports = mongoose.model("Review", ReviewSchema);
