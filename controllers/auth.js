@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const Items = require('../models/Item');
+const Review = require('../models/Review');
 const asyncHandler = require('../middleware/asyncHandler');
 const ErrorResponse = require('../utils/errorResponse');
 const path = require("path");
@@ -12,18 +14,11 @@ exports.register = asyncHandler(async(req, res, next) => {
     const { name, email, password } = req.body;
 
 
-
     let user = await User.findOne({ email });
-
-
 
     if (user) {
         return next(new ErrorResponse(`Email already taken`, 400));
     }
-
-
-
-
 
 
 
@@ -85,7 +80,6 @@ exports.login = asyncHandler(async(req, res, next) => {
     }
 
 
-
     sendTokenResponse(user, 200, res);
 
 })
@@ -120,10 +114,50 @@ exports.logout = asyncHandler(async(req, res, next) => {
 
 
 
+// @desc   Delete user ( it will also delete his items & reviews on those items)
+// @route  DELETE api/v1/auth/delete
+// @access Private
+exports.deleteUser = asyncHandler(async(req, res, next) => {
+
+    let user = await User.findById(req.user.id);
+    let items = await Items.find({
+        user: user._id
+    })
+
+
+    items.map(async item => {
+        await Review.deleteMany({ item: item._id });
+    });
+
+
+    await Items.deleteMany({
+        user: user._id
+    })
+
+    await user.delete();
 
 
 
-// @desc   Update user data
+
+    res.cookie('token', 'none', {
+        expires: new Date(Date.now() + 30 * 1000), // this token will expire after 30 seconds
+        httpOnly: true
+    })
+
+
+    res.status(200).json({
+        success: true,
+        data: {}
+    })
+
+});
+
+
+
+
+
+
+// @desc   Update user data (name & email)
 // @route  PUT api/v1/auth/data
 // @access Private
 exports.updateUserData = asyncHandler(async(req, res, next) => {
@@ -186,7 +220,7 @@ exports.updateUserPassword = asyncHandler(async(req, res, next) => {
 
     const isMatch = await user.matchPassword(currentPassword);
 
-    console.log(isMatch);
+
 
 
     if (!isMatch) {
@@ -196,18 +230,12 @@ exports.updateUserPassword = asyncHandler(async(req, res, next) => {
 
     user.password = newPassword;
 
-
     await user.save();
-
-
 
     res.status(200).json({
         success: true,
         data: 'Password changed'
     })
-
-
-
 
 
 });
