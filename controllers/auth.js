@@ -60,18 +60,6 @@ exports.login = asyncHandler(async(req, res, next) => {
     sendTokenResponse(user, 200, res);
 });
 
-// @desc   Logout user & clear cookie
-// @route  GET api/v1/auth/logout
-// @access Private
-exports.logout = asyncHandler(async(req, res, next) => {
-    localStorage.removeItem("token");
-
-    res.status(200).json({
-        success: true,
-        data: "logged out"
-    });
-});
-
 // @desc   Delete user ( it will also delete his items & reviews on those items)
 // @route  DELETE api/v1/auth/delete
 // @access Private
@@ -90,8 +78,6 @@ exports.deleteUser = asyncHandler(async(req, res, next) => {
     });
 
     await user.delete();
-
-    localStorage.removeItem("token");
 
     res.status(200).json({
         success: true,
