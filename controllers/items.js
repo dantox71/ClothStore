@@ -184,7 +184,7 @@ exports.deleteItem = asyncHandler(async(req, res, next) => {
 
 
 
-    await Item.findByIdAndDelete(req.params.id);
+    await item.delete();
 
 
 

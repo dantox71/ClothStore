@@ -77,6 +77,7 @@ ItemSchema.pre('remove', async function(next) {
         item: this._id
     })
 
+    next();
 })
 
 
