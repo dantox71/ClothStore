@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Navbar from "./components/page/Navbar";
+import Footer from "./components/page/Footer";
 import { loadUser } from "./actions/auth";
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
         </Switch>
+        <Footer />
       </Router>
     </Provider>
   );
