@@ -1,23 +1,25 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import cart from "./cart.svg";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from "../../actions/auth";
 
-const Navbar = ({ auth: { isAuthenticated, user, loading } }) => {
+const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
   const [menuOpened, toggleMenu] = useState(false);
 
   const guestLinks = (
     <Fragment>
       <li>
-        <a href="#!" class="btn btn-primary">
+        <Link to="/login" className="btn btn-primary">
           Login{" "}
-        </a>
+        </Link>
       </li>
 
       <li>
-        <a href="#!" class="btn btn-primary">
+        <Link to="/register" className="btn btn-primary">
           Register
-        </a>
+        </Link>
       </li>
     </Fragment>
   );
@@ -25,51 +27,51 @@ const Navbar = ({ auth: { isAuthenticated, user, loading } }) => {
   const authLinks = (
     <Fragment>
       <li>
-        <a href="#!">
-          Welcome <span class="text-bold ml-1">{user && user.name}</span>
-        </a>
+        <Link to="/profile">
+          Welcome <span className="text-bold ml-1">{user && user.name}</span>
+        </Link>
       </li>
       <li>
-        <a href="#!">Home</a>
+        <Link to="/store">Store</Link>
       </li>
       <li>
-        <a href="cart.html" class="shopping-cart-link">
+        <Link to="/cart" className="shopping-cart-link">
           <img src={cart} alt="Cart Icon" />
-          <span class="item-counter">1</span>
-        </a>
+          <span className="item-counter">{user && user.cart.length}</span>
+        </Link>
       </li>
       <li>
-        <a href="login.html">
-          Logout <i class="fa fa-sign-out-alt"></i>
-        </a>
+        <Link to="/login" onClick={() => logout()}>
+          Logout <i className="fa fa-sign-out-alt"></i>
+        </Link>
       </li>
     </Fragment>
   );
 
   return (
     <nav id="main-navigation" className={menuOpened ? "opened" : ""}>
-      <div class="container">
-        <a href="index.html">
-          <h1 class="brand">ClothStore</h1>
-        </a>
-        <ul class="nav-list">
+      <div className="container">
+        <Link to="/store">
+          <h1 className="brand">ClothStore</h1>
+        </Link>
+        <ul className="nav-list">
           {isAuthenticated && !loading ? authLinks : guestLinks}
         </ul>
 
-        <ul class="mobile-nav-buttons">
+        <ul className="mobile-nav-buttons">
           <li>
-            <a href="#!" class="shopping-cart-link">
-              <span class="item-counter">1</span>
+            <Link to="/cart" className="shopping-cart-link">
+              <span className="item-counter">{user && user.cart.length}</span>
               <img src={cart} alt="Cart Icon" />
-            </a>
+            </Link>
           </li>
           <li>
             <a
               href="#!"
-              class="mobile-menu-toggler"
+              className="mobile-menu-toggler"
               onClick={() => toggleMenu(!menuOpened)}
             >
-              <span class="line"></span>
+              <span className="line"></span>
             </a>
           </li>
         </ul>
@@ -79,11 +81,12 @@ const Navbar = ({ auth: { isAuthenticated, user, loading } }) => {
 };
 
 Navbar.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, {})(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);

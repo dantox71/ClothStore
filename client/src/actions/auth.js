@@ -1,6 +1,7 @@
-import { REGISTER, LOGIN, USER_LOADED, REGISTER_FAIL, LOGIN_FAIL } from "./types";
+import { REGISTER, LOGIN, USER_LOADED, REGISTER_FAIL, LOGIN_FAIL, LOGOUT } from "./types";
 import axios from "axios";
 import setAuthHeader from "../../src/utils/setAuthHeader";
+
 
 export const loadUser = () => async dispatch => {
     if (localStorage.token) {
@@ -80,8 +81,21 @@ export const login = formData => async dispatch => {
             type: LOGIN_FAIL,
             payload: err.response.data.error
         })
-
-
-
     }
+
+
+
+
+
+
+
 };
+
+
+
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
+    })
+}
