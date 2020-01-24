@@ -5,6 +5,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import Navbar from "./components/page/Navbar";
 import { loadUser } from "./actions/auth";
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
+      <Navbar />
       <Router>
         <Switch>
           <Route exact path="/register" component={Register} />
