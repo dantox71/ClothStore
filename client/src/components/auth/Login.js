@@ -12,7 +12,7 @@ const Login = ({ login, auth: { isAuthenticated } }) => {
 
   //Redirect if authenticated
   if (isAuthenticated) {
-    // return <Redirect to="/login" />; REDIRECT TO HOMEPAGE
+    return <Redirect to="/store" />;
   }
 
   const { email, password } = formData;
@@ -60,11 +60,9 @@ const Login = ({ login, auth: { isAuthenticated } }) => {
           </div>
 
           <div className="form-group">
-            <Link to="/items"></Link>
-
             <span>
-              Already have an account?
-              <Link to="/login" className="text-bold">
+              Don't have an account yet ?
+              <Link to="/register" className="text-bold">
                 {" "}
                 Register now!
               </Link>
