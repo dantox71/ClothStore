@@ -7,6 +7,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Navbar from "./components/page/Navbar";
 import Footer from "./components/page/Footer";
+import Alerts from "./components/alerts/Alerts";
 import { loadUser } from "./actions/auth";
 
 const App = () => {
@@ -24,6 +25,8 @@ const App = () => {
           <Route exact path="/login" component={Login} />
         </Switch>
         <Footer />
+
+        <Alerts />
       </Router>
     </Provider>
   );

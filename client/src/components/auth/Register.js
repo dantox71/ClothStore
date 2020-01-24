@@ -2,9 +2,10 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { register } from "../../actions/auth";
+import { setAlert } from "../../actions/alerts";
 import PropTypes from "prop-types";
 
-const Register = ({ register, auth: { isAuthenticated } }) => {
+const Register = ({ register, setAlert, auth: { isAuthenticated } }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -28,9 +29,9 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
 
   const onSubmit = e => {
     if (name === "" || email === "" || password === "" || password2 === "") {
-      console.log("please fill in all required fields");
+      setAlert("Please fill in all fields");
     } else if (password !== password2) {
-      console.log("Password does not match");
+      setAlert("Password does not match");
     }
 
     register(formData);
@@ -96,7 +97,9 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
 };
 
 Register.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  register: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -104,4 +107,4 @@ const mapStateToProps = state => ({
   register: PropTypes.func.isRequired
 });
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, setAlert })(Register);

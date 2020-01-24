@@ -3,8 +3,9 @@ import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { login } from "../../actions/auth";
+import { setAlert } from "../../actions/alerts";
 
-const Login = ({ login, auth: { isAuthenticated } }) => {
+const Login = ({ login, setAlert, auth: { isAuthenticated } }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -26,7 +27,7 @@ const Login = ({ login, auth: { isAuthenticated } }) => {
 
   const onSubmit = e => {
     if (email === "" || password === "") {
-      console.log("please fill in all required fields");
+      setAlert("Please fill in all fields");
     }
 
     login(formData);
@@ -38,8 +39,7 @@ const Login = ({ login, auth: { isAuthenticated } }) => {
     <section id="register">
       <form onSubmit={onSubmit}>
         <div className="container">
-          <h1>Log In</h1>
-
+          <h1> Log In </h1>
           <div className="form-group">
             <input
               type="email"
@@ -58,12 +58,10 @@ const Login = ({ login, auth: { isAuthenticated } }) => {
               placeholder="Enter your password"
             />
           </div>
-
           <div className="form-group">
             <span>
-              Don't have an account yet ?
+              Don 't have an account yet ?{" "}
               <Link to="/register" className="text-bold">
-                {" "}
                 Register now!
               </Link>
             </span>
@@ -78,11 +76,12 @@ const Login = ({ login, auth: { isAuthenticated } }) => {
 
 Login.propTypes = {
   auth: PropTypes.object.isRequired,
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, setAlert })(Login);

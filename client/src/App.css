@@ -53,29 +53,64 @@
     flex-direction: column;
 }
 
-.alert {
-    top: 10%;
-    right: -100%;
+.alerts {
     position: fixed;
+    right: 5%;
+    top: 10%;
+    z-index: 1000;
+}
+
+.alert {
     border: 5px solid #612a33;
     padding: 0.5rem 1.5rem;
+    font-size: 13px;
+    margin-bottom: 30px;
+    opacity: 0;
     z-index: 1000;
-    background: #843a46;
-    color: white;
+    color: #843a46;
+    background: white;
     letter-spacing: 2px;
+    animation-name: transformAlert;
+    animation-duration: 4.2s;
     width: 350px;
+    display: block;
 }
 
 .alert i {
     top: -15px;
     left: -15px;
     position: absolute;
-    font-size: 40px;
+    font-size: 35px;
     border-radius: 50%;
 }
 
-.alert-show {
-    right: 5%;
+@keyframes transformAlert {
+    0% {
+        right: -20%;
+    }
+    30% {
+        right: 2%;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    80% {
+        right: 2%;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(600px);
+    }
+}
+
+@media (max-width: 600px) {
+    .alerts {
+        position: fixed;
+        right: 5%;
+        top: 16%;
+        margin-bottom: 50px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -83,11 +118,6 @@
         width: 90%;
         margin: auto;
         top: -100%;
-    }
-    .alert-show {
-        top: 10%;
-        left: 0;
-        right: 0;
     }
 }
 
@@ -1240,14 +1270,14 @@ ul {
     align-items: center;
 }
 
-#add-item input[type='submit'],
-#edit-item input[type='submit'],
-#edit-item input[type='submit'],
-#edit-account input[type='submit'] {
+#add-item input[type="submit"],
+#edit-item input[type="submit"],
+#edit-item input[type="submit"],
+#edit-account input[type="submit"] {
     margin-left: auto;
 }
 
-#edit-item input[type='number'] {
+#edit-item input[type="number"] {
     width: 150px;
 }
 
