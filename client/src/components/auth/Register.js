@@ -1,11 +1,23 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { register } from "../../actions/auth";
+import { register, clearError } from "../../actions/auth";
 import { setAlert } from "../../actions/alerts";
 import PropTypes from "prop-types";
 
-const Register = ({ register, setAlert, auth: { isAuthenticated } }) => {
+const Register = ({
+  register,
+  setAlert,
+  clearError,
+  auth: { isAuthenticated, error }
+}) => {
+  useEffect(() => {
+    if (error) {
+      setAlert(error);
+      clearError();
+    }
+  }, [error]);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -99,7 +111,8 @@ const Register = ({ register, setAlert, auth: { isAuthenticated } }) => {
 Register.propTypes = {
   auth: PropTypes.object.isRequired,
   register: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  clearError: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -107,4 +120,6 @@ const mapStateToProps = state => ({
   register: PropTypes.func.isRequired
 });
 
-export default connect(mapStateToProps, { register, setAlert })(Register);
+export default connect(mapStateToProps, { register, setAlert, clearError })(
+  Register
+);
