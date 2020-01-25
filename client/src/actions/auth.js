@@ -1,14 +1,20 @@
-import { REGISTER, LOGIN, USER_LOADED, REGISTER_FAIL, LOGIN_FAIL, LOGOUT } from "./types";
+import {
+    REGISTER,
+    LOGIN,
+    USER_LOADED,
+    REGISTER_FAIL,
+    AUTH_FAIL,
+    LOGIN_FAIL,
+    LOGOUT,
+    CLEAR_ERROR
+} from "./types";
 import axios from "axios";
 import setAuthHeader from "../../src/utils/setAuthHeader";
-
 
 export const loadUser = () => async dispatch => {
     if (localStorage.token) {
         setAuthHeader(localStorage.token);
     }
-
-
 
     try {
         const res = await axios.get("/api/v1/auth/me");
@@ -18,7 +24,12 @@ export const loadUser = () => async dispatch => {
             payload: res.data.data
         });
     } catch (err) {
-        console.log(err.response.data);
+        console.log(err.response.data.error);
+
+        dispatch({
+            type: AUTH_FAIL,
+            payload: err.response.data.error
+        })
     }
 };
 
@@ -43,18 +54,12 @@ export const register = formData => async dispatch => {
     } catch (err) {
         console.log(err.response.data.error);
 
-
         dispatch({
             type: REGISTER_FAIL,
             payload: err.response.data.error
-        })
+        });
     }
 };
-
-
-
-
-
 
 export const login = formData => async dispatch => {
     const config = {
@@ -80,16 +85,17 @@ export const login = formData => async dispatch => {
         dispatch({
             type: LOGIN_FAIL,
             payload: err.response.data.error
-        })
+        });
     }
-
-
-
-
-
-
-
 };
+
+
+export const clearError = () => dispatch => {
+
+    dispatch({
+        type: CLEAR_ERROR
+    })
+}
 
 
 
@@ -97,5 +103,5 @@ export const login = formData => async dispatch => {
 export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT
-    })
-}
+    });
+};

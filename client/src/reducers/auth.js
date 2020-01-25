@@ -4,7 +4,9 @@ import {
     LOGIN,
     REGISTER_FAIL,
     LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+    CLEAR_ERROR,
+    AUTH_FAIL
 } from "../actions/types";
 
 const initialState = {
@@ -12,7 +14,7 @@ const initialState = {
     token: localStorage.getItem("token"),
     loading: true,
     user: null,
-    errors: null
+    error: null
 };
 
 export default (state = initialState, action) => {
@@ -24,7 +26,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isAuthenticated: true,
                 loading: false,
-                errors: null,
+                error: null,
                 user: payload
             };
 
@@ -42,6 +44,7 @@ export default (state = initialState, action) => {
 
         case REGISTER_FAIL:
         case LOGIN_FAIL:
+        case AUTH_FAIL:
         case LOGOUT:
             localStorage.removeItem('token');
             return {
@@ -49,7 +52,14 @@ export default (state = initialState, action) => {
                 token: null,
                 isAuthenticated: false,
                 loading: false,
-                errors: payload || null
+                error: payload
+            }
+
+
+        case CLEAR_ERROR:
+            return {
+                ...state,
+                error: null
             }
 
         default:
