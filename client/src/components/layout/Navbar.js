@@ -16,8 +16,8 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
           className="btn btn-primary"
           onClick={() => toggleMenu(!menuOpened)}
         >
-          Login{" "}
-        </Link>{" "}
+          Login
+        </Link>
       </li>
       <li>
         <Link
@@ -25,9 +25,9 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
           className="btn btn-primary"
           onClick={() => toggleMenu(!menuOpened)}
         >
-          Register{" "}
-        </Link>{" "}
-      </li>{" "}
+          Register
+        </Link>
+      </li>
     </Fragment>
   );
 
@@ -35,26 +35,23 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
     <Fragment>
       <li>
         <Link to="/me" onClick={() => toggleMenu(!menuOpened)}>
-          Welcome <span className="text-bold ml-1"> {user && user.name} </span>{" "}
-        </Link>{" "}
-      </li>{" "}
+          Welcome <span className="text-bold ml-1"> {user && user.name} </span>
+        </Link>
+      </li>
       <li>
-        <Link to="/store"> Store </Link>{" "}
-      </li>{" "}
+        <Link to="/store"> Store </Link>
+      </li>
       <li>
         <Link to="/cart" className="shopping-cart-link">
           <img src={cart} alt="Cart Icon" />
-          <span className="item-counter">
-            {" "}
-            {user && user.cart.length}{" "}
-          </span>{" "}
-        </Link>{" "}
-      </li>{" "}
+          <span className="item-counter">{user && user.cart.length}</span>
+        </Link>
+      </li>
       <li>
         <Link to="/login" onClick={() => logout()}>
-          Logout <i className="fa fa-sign-out-alt"> </i>{" "}
-        </Link>{" "}
-      </li>{" "}
+          Logout <i className="fa fa-sign-out-alt"> </i>
+        </Link>
+      </li>
     </Fragment>
   );
 
@@ -62,11 +59,10 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
     <nav id="main-navigation" className={menuOpened ? "opened" : ""}>
       <div className="container">
         <Link to="/store">
-          <h1 className="brand"> ClothStore </h1>{" "}
-        </Link>{" "}
+          <h1 className="brand"> ClothStore </h1>
+        </Link>
         <ul className="nav-list">
-          {" "}
-          {isAuthenticated && !loading ? authLinks : guestLinks}{" "}
+          {isAuthenticated && !loading ? authLinks : guestLinks}
         </ul>
         <ul className="mobile-nav-buttons">
           {user && (
@@ -85,11 +81,11 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
               className="mobile-menu-toggler"
               onClick={() => toggleMenu(!menuOpened)}
             >
-              <span className="line"> </span>{" "}
-            </a>{" "}
-          </li>{" "}
-        </ul>{" "}
-      </div>{" "}
+              <span className="line"> </span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 };

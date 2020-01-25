@@ -8,7 +8,7 @@ import Login from "./components/auth/Login";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Alerts from "./components/alerts/Alerts";
-import Profile from "./components/profile/Profile";
+import Account from "./components/account/Account";
 import { loadUser } from "./actions/auth";
 
 const App = () => {
@@ -22,14 +22,13 @@ const App = () => {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/me" component={Profile} />
-        </Switch>
+          <Route exact path="/register" component={Register} />{" "}
+          <Route exact path="/login" component={Login} />{" "}
+          <Route exact path="/me" component={Account} />{" "}
+        </Switch>{" "}
         <Footer />
-
         <Alerts />
-      </Router>
+      </Router>{" "}
     </Provider>
   );
 };
