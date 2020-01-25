@@ -5,9 +5,10 @@ import store from "./store";
 import { Provider } from "react-redux";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
-import Navbar from "./components/page/Navbar";
-import Footer from "./components/page/Footer";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 import Alerts from "./components/alerts/Alerts";
+import Profile from "./components/profile/Profile";
 import { loadUser } from "./actions/auth";
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
         <Switch>
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/me" component={Profile} />
         </Switch>
         <Footer />
 

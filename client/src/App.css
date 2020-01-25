@@ -1281,6 +1281,31 @@ ul {
     width: 150px;
 }
 
+label i {
+    cursor: pointer;
+}
+
+.image-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem auto 3rem auto;
+}
+
+.image-upload a {
+    font-size: 13px;
+    border: 1px solid #843a46;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+input[type='file'] {
+    display: none;
+}
+
 @media (max-width: 700px) {
     #login .form-group:last-child,
     #register .form-group:last-child {

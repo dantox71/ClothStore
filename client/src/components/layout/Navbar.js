@@ -34,7 +34,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
   const authLinks = (
     <Fragment>
       <li>
-        <Link to="/profile" onClick={() => toggleMenu(!menuOpened)}>
+        <Link to="/me" onClick={() => toggleMenu(!menuOpened)}>
           Welcome <span className="text-bold ml-1"> {user && user.name} </span>{" "}
         </Link>{" "}
       </li>{" "}
