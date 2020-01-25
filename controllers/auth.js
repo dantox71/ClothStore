@@ -167,7 +167,7 @@ exports.uploadUserPhoto = asyncHandler(async(req, res, next) => {
     const fileExtension = path.extname(file.name);
     file.name = `user_photo_${user._id}${fileExtension}`;
 
-    file.mv(`${process.env.FILE_UPLOAD_PATH}/users/${file.name}`, async err => {
+    file.mv(`${process.env.FILE_UPLOAD_PATH}/images/users/${file.name}`, async err => {
         if (err) {
             return next(new ErrorResponse("Problem with file upload", 500));
         }

@@ -19,7 +19,7 @@ const Account = ({ auth: { user, isAuthenticated, loading } }) => {
           <div class="profile-top">
             <img
               class="img-rounded"
-              src={`${process.env.PUBLIC_URL}/images/users/${user.image}`}
+              src={`${process.env.PUBLIC_URL}/uploads/images/users/${user.image}`}
               alt="User Avatar"
             />
             <div class="image-upload">
