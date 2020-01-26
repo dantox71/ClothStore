@@ -12,7 +12,6 @@ const Account = ({ auth: { user, isAuthenticated, loading } }) => {
   return (
     <section id="profile">
       <div class="container">
-        {" "}
         {loading ? (
           <Loader />
         ) : (
@@ -24,28 +23,28 @@ const Account = ({ auth: { user, isAuthenticated, loading } }) => {
             />
             <div class="image-upload">
               <label class="d-flex-column">
-                <i class="far fa-images fa-2x"> </i>{" "}
+                <i class="far fa-images fa-2x"> </i>
                 <input type="file" name="file" />
-              </label>{" "}
+              </label>
               <a href="#!" class="btn btn-primary">
-                Click To Upload{" "}
-              </a>{" "}
+                Click To Upload
+              </a>
             </div>
-            <h2> {user.name} </h2>{" "}
+            <h2> {user.name} </h2>
             <p>
-              You have: <span class="text-bold"> $ {user.money} </span>{" "}
+              You have: <span class="text-bold"> $ {user.money} </span>
             </p>
             <div class="profile-buttons">
-              <a href="edit-account.html" class="btn btn-primary">
-                Edit Account{" "}
-              </a>{" "}
+              <Link to="/edit-account" class="btn btn-primary">
+                Edit Account
+              </Link>
               <a href="remove-account.html" class="btn btn-primary">
-                Remove Account{" "}
-              </a>{" "}
-            </div>{" "}
+                Remove Account
+              </a>
+            </div>
           </div>
-        )}{" "}
-      </div>{" "}
+        )}
+      </div>
     </section>
   );
 };
