@@ -39,16 +39,29 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
         </Link>
       </li>
       <li>
-        <Link to="/store"> Store </Link>
+        <Link to="/store" onClick={() => toggleMenu(!menuOpened)}>
+          {" "}
+          Store{" "}
+        </Link>
       </li>
       <li>
-        <Link to="/cart" className="shopping-cart-link">
+        <Link
+          to="/cart"
+          className="shopping-cart-link"
+          onClick={() => toggleMenu(!menuOpened)}
+        >
           <img src={cart} alt="Cart Icon" />
           <span className="item-counter">{user && user.cart.length}</span>
         </Link>
       </li>
       <li>
-        <Link to="/login" onClick={() => logout()}>
+        <Link
+          to="/login"
+          onClick={() => {
+            logout();
+            toggleMenu(!menuOpened);
+          }}
+        >
           Logout <i className="fa fa-sign-out-alt"> </i>
         </Link>
       </li>
