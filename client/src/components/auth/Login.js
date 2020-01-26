@@ -40,9 +40,9 @@ const Login = ({
   const onSubmit = e => {
     if (email === "" || password === "") {
       setAlert("Please fill in all fields");
+    } else {
+      login(formData);
     }
-
-    login(formData);
 
     e.preventDefault();
   };
@@ -51,7 +51,7 @@ const Login = ({
     <section id="register">
       <form onSubmit={onSubmit}>
         <div className="container">
-          <h1> Log In </h1>{" "}
+          <h1> Log In </h1>
           <div className="form-group">
             <input
               type="email"
@@ -60,7 +60,8 @@ const Login = ({
               value={email}
               placeholder="Enter your email"
             />
-          </div>{" "}
+          </div>
+
           <div className="form-group">
             <input
               type="password"
@@ -69,19 +70,20 @@ const Login = ({
               onChange={onChange}
               placeholder="Enter your password"
             />
-          </div>{" "}
+          </div>
+
           <div className="form-group">
             <span>
-              Don 't have an account yet ?{" "}
+              Don 't have an account yet ?
               <Link to="/register" className="text-bold">
                 Register now!
-              </Link>{" "}
+              </Link>
             </span>
 
             <input type="submit" value="Login" className="btn btn-primary" />
-          </div>{" "}
-        </div>{" "}
-      </form>{" "}
+          </div>
+        </div>
+      </form>
     </section>
   );
 };

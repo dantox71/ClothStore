@@ -44,9 +44,9 @@ const Register = ({
       setAlert("Please fill in all fields");
     } else if (password !== password2) {
       setAlert("Password does not match");
+    } else {
+      register(formData);
     }
-
-    register(formData);
 
     e.preventDefault();
   };
