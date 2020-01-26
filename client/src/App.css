@@ -1317,3 +1317,72 @@ input[type='file'] {
         margin-top: 1.5rem;
     }
 }
+
+.modal {
+    background: rgba(132, 58, 70, 0.9);
+    color: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    width: 40%;
+}
+
+.modal-content .modal-btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.modal-content .modal-btns .modal-btn {
+    display: block;
+    color: white;
+    border: 3px solid white;
+    width: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.1rem 0.6rem;
+}
+
+.modal-content .modal-btns .modal-btn:hover {
+    background: #843a46;
+}
+
+.modal-content .modal-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 50px;
+    color: white;
+}
+
+@media(max-width:900px) {
+    .modal-content {
+        width: 70%;
+    }
+}
+
+@media(max-width:500px) {
+    .modal-content {
+        width: 90%;
+    }
+}
+
+@media(max-width:500px) {
+    .modal-content .modal-btns {
+        flex-direction: column;
+        align-items: center;
+    }
+    .modal-content .modal-btns .modal-btn {
+        margin-bottom: 1rem;
+    }
+}
