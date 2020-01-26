@@ -75,6 +75,13 @@ const EditAccount = ({
       setAlert("New password is the same as old");
     } else {
       editAccountPassword({ currentPassword, newPassword });
+
+      setFormData({
+        ...formData,
+        currentPassword: "",
+        newPassword: "",
+        newPassword2: ""
+      });
     }
 
     e.preventDefault();
@@ -118,7 +125,7 @@ const EditAccount = ({
               <div className="form-group">
                 <input
                   value={currentPassword}
-                  type="text"
+                  type="password"
                   name="currentPassword"
                   onChange={onChange}
                   placeholder="Enter current password"
@@ -127,7 +134,7 @@ const EditAccount = ({
               <div className="form-group">
                 <input
                   value={newPassword}
-                  type="text"
+                  type="password"
                   name="newPassword"
                   onChange={onChange}
                   placeholder="Enter new password"
@@ -136,7 +143,7 @@ const EditAccount = ({
               <div className="form-group">
                 <input
                   value={newPassword2}
-                  type="text"
+                  type="password"
                   name="newPassword2"
                   onChange={onChange}
                   placeholder="confirm new password"
