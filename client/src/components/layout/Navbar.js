@@ -45,14 +45,16 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
         </Link>
       </li>
       <li>
-        <Link
-          to="/cart"
-          className="shopping-cart-link"
-          onClick={() => toggleMenu(!menuOpened)}
-        >
-          <img src={cart} alt="Cart Icon" />
-          <span className="item-counter">{user && user.cart.length}</span>
-        </Link>
+        {isAuthenticated && (
+          <Link
+            to="/cart"
+            className="shopping-cart-link"
+            onClick={() => toggleMenu(!menuOpened)}
+          >
+            <img src={cart} alt="Cart Icon" />
+            <span className="item-counter">{user && user.cart.length}</span>
+          </Link>
+        )}
       </li>
       <li>
         <Link
