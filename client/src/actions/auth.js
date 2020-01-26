@@ -10,6 +10,8 @@ import {
 } from "./types";
 import axios from "axios";
 import setAuthHeader from "../../src/utils/setAuthHeader";
+import { setAlert } from '../actions/alerts';
+import store from '../store';
 
 export const loadUser = () => async dispatch => {
     if (localStorage.token) {
@@ -50,6 +52,7 @@ export const register = formData => async dispatch => {
         });
 
         dispatch(loadUser());
+        store.dispatch(setAlert("Account Registered"));
     } catch (err) {
 
         dispatch({
@@ -77,6 +80,7 @@ export const login = formData => async dispatch => {
         });
 
         dispatch(loadUser());
+        store.dispatch(setAlert("Logged In"));
     } catch (err) {
 
 
@@ -102,4 +106,6 @@ export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT
     });
+
+    store.dispatch(setAlert("Logged Out"));
 };
