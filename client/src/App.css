@@ -532,6 +532,9 @@
     .item .item-menu p {
         display: none;
     }
+    #profile .container .profile-top .profile-buttons {
+        flex-direction: column;
+    }
     #items .pagination {
         font-size: 1.5rem;
         margin: 3rem 0;
@@ -957,7 +960,6 @@
 
 #profile .container .magazine .item {
     display: flex;
-    justify-content: center;
     align-items: center;
     margin: 2rem 0;
 }
@@ -971,13 +973,14 @@
 
 #profile .container .magazine .item img {
     width: 350px;
-    min-height: 350px;
-    height: 350px;
+    min-height: 300px;
+    height: 300px;
 }
 
 #profile .container .magazine .item .item-right {
     padding: 1rem;
     display: flex;
+    width: 40%;
     flex-direction: column;
     text-align: left;
 }
@@ -1003,10 +1006,14 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        border-bottom: 1px solid #aaa;
+    }
+    #profile .container .magazine .item .item-right {
+        width: 100%;
     }
     #profile .container .magazine .item img {
         width: 100%;
-        height: 700px;
+        height: 300px;
     }
 }
 
@@ -1020,18 +1027,12 @@
         width: 100%;
         height: 400px;
     }
-    #profile .container .profile-top .profile-buttons {
-        flex-direction: column;
-    }
     #profile .container .profile-top img {
         width: 250px;
         height: 250px;
     }
     #profile .container .profile-top .profile-buttons .btn {
-        margin: 0.3rem 0;
-    }
-    .magazine .item .item-right .item-buttons {
-        flex-direction: column;
+        margin: 0.3rem 0.3rem;
     }
     .magazine .item .item-right .item-buttons .btn {
         margin: 0.3rem 0;
