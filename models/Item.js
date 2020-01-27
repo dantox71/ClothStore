@@ -40,6 +40,11 @@ const ItemSchema = new mongoose.Schema({
         default: "item-image.jpg"
     },
 
+    createdAt:{
+        type:Date,
+        default:Date.now
+    },
+
     averageRating: {
         type: Number
     },
