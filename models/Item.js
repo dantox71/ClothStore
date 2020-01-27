@@ -22,7 +22,8 @@ const ItemSchema = new mongoose.Schema({
 
     price: {
         type: Number,
-        required: [true, "Please add item price"]
+        required: [true, "Please add item price"],
+        min: [1, 'Item price has to be more than 0 ']
     },
 
     onsell: {
@@ -40,9 +41,9 @@ const ItemSchema = new mongoose.Schema({
         default: "item-image.jpg"
     },
 
-    createdAt:{
-        type:Date,
-        default:Date.now
+    createdAt: {
+        type: Date,
+        default: Date.now
     },
 
     averageRating: {
