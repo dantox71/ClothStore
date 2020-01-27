@@ -16,7 +16,7 @@ exports.getItems = asyncHandler(async(req, res, next) => {
 exports.getLoggedInUserItems = asyncHandler(async(req, res, next) => {
     const items = await Item.find({
         user: req.user.id
-    });
+    }).sort({ "createdAt": -1 });
 
     res.status(200).json({
         success: true,
