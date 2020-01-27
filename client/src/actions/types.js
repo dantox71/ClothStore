@@ -12,3 +12,5 @@ export const UPLOAD_USER_PHOTO = "UPLOAD_USER_PHOTO";
 export const EDIT_ACCOUNT = "EDIT_ACCOUNT";
 export const REMOVE_ACCOUNT = "REMOVE_ACCOUNT";
 export const EDIT_ACCOUNT_FAIL = "EDIT_ACCOUNT_FAIL";
+export const GET_USER_ITEMS = "GET_USER_ITEMS";
+export const ADD_ITEM = "ADD_ITEM";
