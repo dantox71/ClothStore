@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Loader from "../layout/Loader";
 import UserItems from "../items/UserItems";
 import UserInfo from "./UserInfo";
+import AddItem from "../items/AddItem";
 
 const Account = ({ auth: { user, isAuthenticated, loading } }) => {
   if (!isAuthenticated) {
@@ -19,6 +20,7 @@ const Account = ({ auth: { user, isAuthenticated, loading } }) => {
         ) : (
           <Fragment>
             <UserInfo />
+            <AddItem />
             <UserItems />
           </Fragment>
         )}
