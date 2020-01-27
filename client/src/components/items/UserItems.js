@@ -6,7 +6,7 @@ import { getUserItems } from "../../actions/items";
 const UserItems = ({ getUserItems, items: { items } }) => {
   useEffect(() => {
     getUserItems();
-  }, []);
+  }, [getUserItems]);
 
   return (
     <div class="magazine">
