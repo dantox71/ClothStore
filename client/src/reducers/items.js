@@ -28,6 +28,12 @@ export default (state = initialState, action) => {
             }
 
 
+        case ADD_ITEM:
+            return {
+                ...state,
+                items:[payload,...state.items]
+            }
+
 
 
         default:
