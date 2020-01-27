@@ -61,7 +61,7 @@ const UserItems = ({ getUserItems, items: { items } }) => {
 
 UserItems.propTypes = {
   getUserItems: PropTypes.func.isRequired,
-  items: PropTypes.object.isRequired
+  items: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({
