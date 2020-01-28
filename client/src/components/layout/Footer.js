@@ -3,60 +3,60 @@ import React from "react";
 const Footer = props => {
   return (
     <footer id="main-footer">
-      <div class="footer-top">
-        <div class="container">
-          <div class="footer-top-wrapper">
-            <div class="contact">
+      <div className="footer-top">
+        <div className="container">
+          <div className="footer-top-wrapper">
+            <div className="contact">
               <h2>Our Contact Information</h2>
               <div>
                 <p>
-                  <i class="fa fa-envelope"></i> daniellagowskii@gmail.com
+                  <i className="fa fa-envelope"></i> daniellagowskii@gmail.com
                 </p>
 
                 <p>
-                  <i class="fa fa-phone"></i>48+ 231 534 345
+                  <i className="fa fa-phone"></i>48+ 231 534 345
                 </p>
               </div>
             </div>
-            <form class="newsletter">
+            <form className="newsletter">
               <h2>Join to Our newsletter</h2>
 
-              <div class="newsletter-inputs">
+              <div className="newsletter-inputs">
                 <input
                   type="email"
                   name="newsletter-email"
                   placeholder="Your Email Adress"
                 />
 
-                <button type="submit" class="newsletter-btn">
-                  Send <i class="fa fa-send-o"></i>
+                <button type="submit" className="newsletter-btn">
+                  Send <i className="fa fa-send-o"></i>
                 </button>
               </div>
             </form>
 
-            <div class="social-media">
+            <div className="social-media">
               <h2>Check Out Our Social Media</h2>
-              <div class="social-media-links">
+              <div className="social-media-links">
                 <a href="#!">
-                  <i class="fab fa-facebook"></i>
+                  <i className="fab fa-facebook"></i>
                 </a>
                 <a href="#!">
-                  <i class="fab fa-twitter"></i>
-                </a>
-
-                <a href="#!">
-                  <i class="fab fa-instagram"></i>
+                  <i className="fab fa-twitter"></i>
                 </a>
 
                 <a href="#!">
-                  <i class="fab fa-linkedin"></i>
+                  <i className="fab fa-instagram"></i>
+                </a>
+
+                <a href="#!">
+                  <i className="fab fa-linkedin"></i>
                 </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="footer-bottom">
+      <div className="footer-bottom">
         <p>
           Created By
           <a target="_blank" href="http://daniellagowski.netlify.com">
