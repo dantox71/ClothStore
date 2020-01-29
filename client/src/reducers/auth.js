@@ -6,7 +6,8 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     CLEAR_ERROR,
-    AUTH_FAIL
+    AUTH_FAIL,
+    EDIT_ACCOUNT_DATA
 } from "../actions/types";
 
 const initialState = {
@@ -53,7 +54,15 @@ export default (state = initialState, action) => {
                 isAuthenticated: false,
                 loading: false,
                 error: payload
-            }
+            };
+
+
+        case EDIT_ACCOUNT_DATA:
+
+            return {
+                ...state,
+                user: payload
+            };
 
 
         case CLEAR_ERROR:
