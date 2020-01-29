@@ -72,7 +72,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
   return (
     <nav id="main-navigation" className={menuOpened ? "opened" : ""}>
       <div className="container">
-        <Link to="/store">
+        <Link to="/home">
           <h1 className="brand"> ClothStore </h1>
         </Link>
         <ul className="nav-list">
