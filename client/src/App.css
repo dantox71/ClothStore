@@ -456,6 +456,11 @@
     max-height: 500px;
 }
 
+.filter-btn {
+    background: white;
+    padding: 0.9rem 4rem;
+}
+
 .item .item-menu {
     display: flex;
     justify-content: space-between;
@@ -1224,6 +1229,7 @@ ul {
 
 #add-item input,
 #edit-account input,
+#add-item select,
 #login input,
 #register input,
 #edit-item input {
@@ -1231,6 +1237,10 @@ ul {
     border: 2px solid #fff;
     outline: 1px solid #ce8490;
     padding: 1rem 1rem;
+}
+
+#add-item select {
+    margin-bottom: 2rem;
 }
 
 #add-item input:focus,
