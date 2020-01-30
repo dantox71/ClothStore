@@ -59,7 +59,7 @@ const ItemsOnSell = ({
                       Read More
                     </Link>
 
-                    {user._id === item.user && (
+                    {user && user._id === item.user && (
                       //Show delete icon only if logged in user is owner of this item
                       <a href="#">
                         <i className="fa fa-times"></i>
