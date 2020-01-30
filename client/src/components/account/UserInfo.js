@@ -36,7 +36,9 @@ const UserInfo = ({ auth: { user } }) => {
   );
 };
 
-UserInfo.propTypes = {};
+UserInfo.propTypes = {
+  auth: PropTypes.object.isRequired
+};
 
 const mapStateToPropTypes = state => ({
   auth: state.auth
