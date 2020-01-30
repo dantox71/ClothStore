@@ -5,30 +5,30 @@ import { connect } from "react-redux";
 
 const UserInfo = ({ auth: { user } }) => {
   return (
-    <div class="profile-top">
+    <div className="profile-top">
       <img
-        class="img-rounded"
+        className="img-rounded"
         src={`${process.env.PUBLIC_URL}/uploads/images/users/${user.image}`}
         alt="User Avatar"
       />
-      <div class="image-upload">
-        <label class="d-flex-column">
-          <i class="far fa-images fa-2x"> </i>
+      <div className="image-upload">
+        <label className="d-flex-column">
+          <i className="far fa-images fa-2x"> </i>
           <input type="file" name="file" />
         </label>
-        <a href="#!" class="btn btn-primary">
+        <a href="#!" className="btn btn-primary">
           Click To Upload
         </a>
       </div>
       <h2> {user.name} </h2>
       <p>
-        You have: <span class="text-bold"> $ {user.money} </span>
+        You have: <span className="text-bold"> $ {user.money} </span>
       </p>
-      <div class="profile-buttons">
-        <Link to="/edit-account" class="btn btn-primary">
+      <div className="profile-buttons">
+        <Link to="/edit-account" className="btn btn-primary">
           Edit Account
         </Link>
-        <a href="remove-account.html" class="btn btn-primary">
+        <a href="remove-account.html" className="btn btn-primary">
           Remove Account
         </a>
       </div>

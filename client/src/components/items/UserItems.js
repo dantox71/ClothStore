@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getUserItems } from "../../actions/items";
@@ -45,9 +46,9 @@ const UserItems = ({ getUserItems, items: { items } }) => {
             </p>
 
             <div class="item-buttons">
-              <a href="edit-item.html" class="btn btn-primary">
+              <Link to={`/edit-item/${item._id}`} class="btn btn-primary">
                 Edit
-              </a>
+              </Link>
               <a href="#" class="btn btn-primary">
                 Sell
               </a>
@@ -61,7 +62,7 @@ const UserItems = ({ getUserItems, items: { items } }) => {
 
 UserItems.propTypes = {
   getUserItems: PropTypes.func.isRequired,
-  items: PropTypes.array.isRequired
+  items: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
