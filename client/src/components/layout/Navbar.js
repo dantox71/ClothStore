@@ -39,8 +39,8 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
         </Link>
       </li>
       <li>
-        <Link to="/" onClick={() => toggleMenu(!menuOpened)}>
-          Store
+        <Link to="/home" onClick={() => toggleMenu(!menuOpened)}>
+          Home
         </Link>
       </li>
       <li>
