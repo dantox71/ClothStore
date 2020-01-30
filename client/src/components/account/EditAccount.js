@@ -47,8 +47,7 @@ const EditAccount = ({
   const editData = e => {
     if (name === "" && name === "") {
       setAlert("Enter new name or email");
-    }
-    if (name.length < 3) {
+    } else if (name.length < 3) {
       setAlert("New name should be at least 3 characters long");
     } else {
       editAccountData({ name, email });

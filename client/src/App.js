@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import store from "./store";
 import { Provider } from "react-redux";
+import Home from "./components/layout/Home";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import Item from "./components/items/Item";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Alerts from "./components/alerts/Alerts";
@@ -23,9 +25,11 @@ const App = () => {
       <Router>
         <Navbar />
         <Switch>
+          <Route exact path="/home" component={Home} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/me" component={Account} />
+          <Route exact path="/items/:itemId" component={Item} />
           <Route exact path="/edit-account" component={EditAccount} />
         </Switch>
         <Footer />

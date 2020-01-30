@@ -12,7 +12,7 @@ exports.getItems = asyncHandler(async(req, res, next) => {
 
 // @desc   Get logged in user items
 // @route  GET api/v1/items/me
-// @access Pivater
+// @access Private
 exports.getLoggedInUserItems = asyncHandler(async(req, res, next) => {
     const items = await Item.find({
         user: req.user.id
