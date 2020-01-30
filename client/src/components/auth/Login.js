@@ -25,7 +25,7 @@ const Login = ({
 
   //Redirect if authenticated
   if (isAuthenticated) {
-    return <Redirect to="/store" />;
+    return <Redirect to="/home" />;
   }
 
   const { email, password } = formData;
@@ -61,7 +61,6 @@ const Login = ({
               placeholder="Enter your email"
             />
           </div>
-
           <div className="form-group">
             <input
               type="password"
@@ -71,7 +70,6 @@ const Login = ({
               placeholder="Enter your password"
             />
           </div>
-
           <div className="form-group">
             <span>
               Don 't have an account yet ?
