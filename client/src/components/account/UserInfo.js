@@ -2,8 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { deleteAccount } from "../../actions/account";
 
-const UserInfo = ({ auth: { user } }) => {
+const UserInfo = ({ deleteAccount, auth: { user } }) => {
+  const onAccountDelete = () => {
+    if (
+      window.confirm(
+        "Are sure that you want to delete your account? This operation is ireversable and You will not be able to recover your account"
+      )
+    ) {
+      deleteAccount();
+    }
+  };
+
   return (
     <div className="profile-top">
       <img
@@ -28,7 +39,7 @@ const UserInfo = ({ auth: { user } }) => {
         <Link to="/edit-account" className="btn btn-primary">
           Edit Account
         </Link>
-        <a href="remove-account.html" className="btn btn-primary">
+        <a href="#!" className="btn btn-primary" onClick={onAccountDelete}>
           Remove Account
         </a>
       </div>
@@ -37,11 +48,12 @@ const UserInfo = ({ auth: { user } }) => {
 };
 
 UserInfo.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  deleteAccount: PropTypes.func.isRequired
 };
 
 const mapStateToPropTypes = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToPropTypes, {})(UserInfo);
+export default connect(mapStateToPropTypes, { deleteAccount })(UserInfo);

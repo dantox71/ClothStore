@@ -2,7 +2,8 @@ import {
     UPLOAD_USER_PHOTO,
     EDIT_ACCOUNT_FAIL,
     CLEAR_ERROR,
-    EDIT_ACCOUNT_DATA
+    EDIT_ACCOUNT_DATA,
+    LOGOUT
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alerts';
@@ -95,6 +96,41 @@ export const editAccountPassword = formData => async dispatch => {
 
 }
 
+
+
+export const deleteAccount = () => async dispatch => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+
+
+    try {
+
+        //Remove account
+        await axios.delete('api/v1/auth/delete');
+
+        //Log out when account is deleted
+
+        store.dispatch({
+            type: LOGOUT
+        });
+
+
+        store.dispatch(setAlert('Account has been deleted'));
+
+
+    } catch (err) {
+        store.dispatch(setAlert(err.response.data.error));
+    }
+
+
+
+
+}
 
 
 
