@@ -1,5 +1,6 @@
 import {
     ADD_ITEM,
+    EDIT_ITEM,
     GET_USER_ITEMS,
     GET_ITEMS_ON_SELL,
     GET_SINGLE_ITEM,
@@ -18,8 +19,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
     const { type, payload } = action;
-
-
 
 
     switch (type) {
@@ -44,6 +43,13 @@ export default (state = initialState, action) => {
                 ...state,
                 item: payload,
                 loading: false,
+            }
+
+
+        case EDIT_ITEM:
+            return {
+                ...state,
+                items: state.items.map(item => item._id === payload.itemId ? payload.newItem : item)
             }
 
 

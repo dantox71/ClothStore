@@ -3,8 +3,10 @@ import {
     GET_USER_ITEMS,
     GET_SINGLE_ITEM,
     GET_ITEMS_ON_SELL,
+    EDIT_ITEM,
     FILTER_ITEMS,
-    SET_LOADING
+    SET_LOADING,
+
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alerts';
@@ -69,6 +71,7 @@ export const getItemsOnSell = () => async dispatch => {
     } catch (err) {
         const error = err.response.data.error;
 
+        console.log(err);
 
         store.dispatch(setAlert(error));
     }
@@ -118,9 +121,6 @@ export const getSingleItem = itemId => async dispatch => {
 
 
     try {
-
-
-
         const res = await axios.get(`/api/v1/items/${itemId}`);
 
         dispatch({
@@ -131,7 +131,8 @@ export const getSingleItem = itemId => async dispatch => {
 
 
     } catch (err) {
-
+        console.log(err);
+        console.log(`ItemId:${itemId}`);
         const error = err.response.data.error;
 
 
@@ -165,13 +166,6 @@ export const addItem = formData => async dispatch => {
 
     const body = JSON.stringify(formData);
 
-
-
-
-
-
-
-
     try {
 
         const res = await axios.post('/api/v1/items', body, config);
@@ -182,7 +176,51 @@ export const addItem = formData => async dispatch => {
             payload: res.data.data
         })
 
-        console.log(res.data);
+
+
+
+    } catch (err) {
+        const error = err.response.data.error;
+
+
+
+        //Check if there's more than one error and if so , show them all.
+        if (error.indexOf(',') > -1) {
+            const errors = error.split(',');
+
+            errors.forEach(error => {
+                store.dispatch(setAlert(error));
+            })
+        } else {
+            store.dispatch(setAlert(error));
+        }
+    }
+}
+
+
+export const editItem = (itemId, formData) => async dispatch => {
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+
+
+
+    const body = await JSON.stringify(formData);
+
+    try {
+
+        const res = await axios.put(`/api/v1/items/${itemId}`, body, config);
+
+
+        dispatch({
+            type: EDIT_ITEM,
+            payload: { itemId, newItem: res.data.data }
+        })
+
+        dispatch(setAlert('Item edited'));
 
 
 
