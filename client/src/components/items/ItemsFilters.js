@@ -35,15 +35,16 @@ const ItemFilters = ({ filterItems, setAlert, items: { items } }) => {
   };
 
   const onSubmit = e => {
-    //Check if no category is selected
+    //Check is there's no category selected.
     if (Object.values(categories).every(category => category === false)) {
       setAlert("Select at least one category");
     } else {
       let queryStr = "";
 
+      //Add price filtering to query string
       queryStr += `&price[gte]=${from}&price[lte]=${to}`;
 
-      //Filter categories
+      //Add category filtering to query string
       for (let category in categories) {
         if (categories[category]) {
           queryStr += `&category[in]=${category}`;
@@ -122,7 +123,7 @@ const ItemFilters = ({ filterItems, setAlert, items: { items } }) => {
               />
             </label>
 
-            <label htmlFor="">
+            <label>
               To
               <input
                 type="number"
@@ -149,7 +150,8 @@ const ItemFilters = ({ filterItems, setAlert, items: { items } }) => {
 
 ItemFilters.propTypes = {
   filterItems: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  items: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

@@ -10,46 +10,46 @@ const UserItems = ({ getUserItems, items: { items } }) => {
   }, [getUserItems]);
 
   return (
-    <div class="magazine">
+    <div className="magazine">
       <h1>Items in your magazine:</h1>
 
       {items.map(item => (
-        <div class="item">
+        <div className="item" key={item._id}>
           <div>
             <img
               src={`${process.env.PUBLIC_URL}/uploads/images/items/${item.image}`}
             />
-            <div class="image-upload">
-              <label class="d-flex-column">
-                <i class="far fa-images fa-2x"> </i>
+            <div className="image-upload">
+              <label className="d-flex-column">
+                <i className="far fa-images fa-2x"> </i>
                 <input type="file" name="file" />
               </label>
-              <a href="#!" class="btn btn-primary">
+              <a href="#!" className="btn btn-primary">
                 Click To Upload
               </a>
             </div>
           </div>
 
-          <div class="item-right">
+          <div className="item-right">
             <h2>{item.name}</h2>
             <p>{item.description}</p>
 
             <p>
-              Average Ratings: <span class="text-bold">4.0</span>
+              Average Ratings: <span className="text-bold">4.0</span>
             </p>
             <p>
-              Number of Ratings: <span class="text-bold">5</span>
+              Number of Ratings: <span className="text-bold">5</span>
             </p>
 
             <p>
-              Price: <span class="text-bold">{`$${item.price}`}</span>
+              Price: <span className="text-bold">{`$${item.price}`}</span>
             </p>
 
-            <div class="item-buttons">
-              <Link to={`/edit-item/${item._id}`} class="btn btn-primary">
+            <div className="item-buttons">
+              <Link to={`/edit-item/${item._id}`} className="btn btn-primary">
                 Edit
               </Link>
-              <a href="#" class="btn btn-primary">
+              <a href="#" className="btn btn-primary">
                 Sell
               </a>
             </div>
