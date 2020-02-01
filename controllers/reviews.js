@@ -34,45 +34,11 @@ exports.getItemReviews = asyncHandler(async(req, res, next) => {
         item: req.params.itemId
     }).populate({ path: 'user', select: 'name image' }).sort({ "createdAt": -1 });
 
-
     res.status(200).json({
         success: true,
         data: reviews
     });
 });
-
-
-// @desc  Get single review
-// @route GET api/v1/reviews/:reviewId
-// @access Public
-exports.getReview = asyncHandler(async(req, res, next) => {
-
-
-
-
-    const review = await Review.findById(req.params.reviewId).populate({
-        path: 'user',
-        select: "name image"
-    });
-
-
-
-    if (!review) {
-        return next(new ErrorResponse(`Review with id of ${req.params.reviewId} doesn't exist`));
-    }
-
-
-
-
-
-
-    res.status(200).json({
-        success: true,
-        data: review
-    });
-});
-
-
 
 // @desc   Add review for item
 // @route  GET api/v1/items/:itemId/reviews
