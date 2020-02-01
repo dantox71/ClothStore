@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const {
     getReviews,
+    getReview,
     getItemReviews,
     addReview,
     deleteReview
@@ -11,9 +12,10 @@ const { protect } = require("../middleware/auth");
 
 router
     .route("/")
-    .get(getReviews)
+    .get(getItemReviews)
     .post(protect, addReview)
-    .get(getItemReviews);
-router.route("/:reviewId").delete(protect, deleteReview);
+
+router.route("/:reviewId").get(getReview).delete(protect, deleteReview);
+// router.route(':itemId').get(getItemReviews);
 
 module.exports = router;
