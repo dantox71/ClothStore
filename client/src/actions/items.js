@@ -10,7 +10,6 @@ import {
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alerts';
-import store from '../store';
 
 
 
@@ -41,7 +40,7 @@ export const getUserItems = () => async dispatch => {
         const error = err.response.data.error;
 
 
-        store.dispatch(setAlert(error));
+        dispatch(setAlert(error));
     }
 
 }
@@ -73,7 +72,7 @@ export const getItemsOnSell = () => async dispatch => {
 
         console.log(err);
 
-        store.dispatch(setAlert(error));
+        dispatch(setAlert(error));
     }
 
 
@@ -106,7 +105,7 @@ export const filterItems = (queryStr) => async dispatch => {
         const error = err.response.data.error;
 
 
-        store.dispatch(setAlert(error));
+        dispatch(setAlert(error));
     }
 
 
@@ -142,10 +141,10 @@ export const getSingleItem = itemId => async dispatch => {
             const errors = error.split(',');
 
             errors.forEach(error => {
-                store.dispatch(setAlert(error));
+                dispatch(setAlert(error));
             })
         } else {
-            store.dispatch(setAlert(error));
+            dispatch(setAlert(error));
         }
     }
 
@@ -189,10 +188,10 @@ export const addItem = formData => async dispatch => {
             const errors = error.split(',');
 
             errors.forEach(error => {
-                store.dispatch(setAlert(error));
+                dispatch(setAlert(error));
             })
         } else {
-            store.dispatch(setAlert(error));
+            dispatch(setAlert(error));
         }
     }
 }
@@ -220,8 +219,17 @@ export const editItem = (itemId, formData) => async dispatch => {
             payload: { itemId, newItem: res.data.data }
         })
 
-        dispatch(setAlert('Item edited'));
+        //Check if user want to sell/return to magazine item (which mean that onsell property is changed)
+        if (formData.onsell) {
+            dispatch(setAlert('Item is available to be bought by others'))
+        } else if (formData.onsell === false) {
+            dispatch(setAlert('Item is no longer available to be bought'));
+        }
+        //If whole item is edited
+        else {
+            dispatch(setAlert('Item edited'));
 
+        }
 
 
     } catch (err) {
@@ -234,10 +242,10 @@ export const editItem = (itemId, formData) => async dispatch => {
             const errors = error.split(',');
 
             errors.forEach(error => {
-                store.dispatch(setAlert(error));
+                dispatch(setAlert(error));
             })
         } else {
-            store.dispatch(setAlert(error));
+            dispatch(setAlert(error));
         }
     }
 }
