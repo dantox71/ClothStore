@@ -35,6 +35,5 @@ router
     .put(protect, updateItem)
     .delete(protect, deleteItem);
 router.route("/:id/photo").put(protect, uploadItemPhoto);
-router.route('/:id/sell').put(protect, sellItem);
 
 module.exports = router;
