@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const {
     getReviews,
-    getReview,
     getItemReviews,
     addReview,
     deleteReview
@@ -15,7 +14,7 @@ router
     .get(getItemReviews)
     .post(protect, addReview)
 
-router.route("/:reviewId").get(getReview).delete(protect, deleteReview);
+router.route("/:reviewId").delete(protect, deleteReview);
 // router.route(':itemId').get(getItemReviews);
 
 module.exports = router;
