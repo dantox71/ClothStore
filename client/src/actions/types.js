@@ -20,3 +20,5 @@ export const GET_ITEMS_ON_SELL = "GET_ITEMS_ON_SELL";
 export const GET_SINGLE_ITEM = "GET_SINGLE_ITEM";
 export const FILTER_ITEMS = "FILTER_ITEMS";
 export const SET_LOADING = "SET_LOADING";
+export const CLEAR_ITEMS = "CLEAR_ITEMS";
+export const CLEAR_ITEM = "CLEAR_ITEM";

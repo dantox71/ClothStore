@@ -6,7 +6,9 @@ import {
     AUTH_FAIL,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_ERROR
+    CLEAR_ERROR,
+    CLEAR_ITEMS,
+    CLEAR_ITEM
 } from "./types";
 import axios from "axios";
 import setAuthHeader from "../../src/utils/setAuthHeader";
@@ -106,6 +108,14 @@ export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT
     });
+
+    //Clear Items state
+    dispatch({
+        type: CLEAR_ITEMS
+    });
+    dispatch({
+        type: CLEAR_ITEM
+    })
 
     store.dispatch(setAlert("Logged Out"));
 };

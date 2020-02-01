@@ -5,6 +5,8 @@ import {
     GET_ITEMS_ON_SELL,
     GET_SINGLE_ITEM,
     FILTER_ITEMS,
+    CLEAR_ITEMS,
+    CLEAR_ITEM,
     SET_LOADING
 } from '../actions/types';
 
@@ -74,6 +76,19 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: true
+            }
+
+
+        case CLEAR_ITEMS:
+            return {
+                ...state,
+                items: []
+            }
+
+        case CLEAR_ITEM:
+            return {
+                ...state,
+                item: null
             }
 
 

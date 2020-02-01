@@ -3,7 +3,9 @@ import {
     EDIT_ACCOUNT_FAIL,
     CLEAR_ERROR,
     EDIT_ACCOUNT_DATA,
-    LOGOUT
+    LOGOUT,
+    CLEAR_ITEMS,
+    CLEAR_ITEM
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alerts';
@@ -114,10 +116,17 @@ export const deleteAccount = () => async dispatch => {
         await axios.delete('api/v1/auth/delete');
 
         //Log out when account is deleted
-
         store.dispatch({
             type: LOGOUT
         });
+
+        //Clear Items state
+        dispatch({
+            type: CLEAR_ITEMS
+        });
+        dispatch({
+            type: CLEAR_ITEM
+        })
 
 
         store.dispatch(setAlert('Account has been deleted'));
