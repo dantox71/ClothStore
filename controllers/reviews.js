@@ -9,7 +9,7 @@ const path = require("path");
 // @route GET api/v1/reviews
 // @access Public
 exports.getReviews = asyncHandler(async(req, res, next) => {
-    const reviews = await Review.find();
+    const reviews = await Review.find().sort({ "createdAt": -1 });
 
     res.status(200).json({
         success: true,
@@ -21,7 +21,7 @@ exports.getReviews = asyncHandler(async(req, res, next) => {
 // @route GET api/v1/items/:itemsId/reviews
 // @access Public
 exports.getItemReviews = asyncHandler(async(req, res, next) => {
-    const item = await Item.findById(req.params.itemId);
+    const item = await Item.findById(req.params.itemId).sort({ "createdAt": -1 });;
 
     if (!item) {
         return next(
