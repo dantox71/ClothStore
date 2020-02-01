@@ -9,12 +9,14 @@ const {
     addItem,
     updateItem,
     deleteItem,
-    uploadItemPhoto
+    uploadItemPhoto,
+    sellItem
 } = require("../controllers/items");
 
 const reviewRouter = require("./reviews");
 
 router.use("/:itemId/reviews", reviewRouter);
+
 
 const Item = require("../models/Item");
 
@@ -33,5 +35,6 @@ router
     .put(protect, updateItem)
     .delete(protect, deleteItem);
 router.route("/:id/photo").put(protect, uploadItemPhoto);
+router.route('/:id/sell').put(protect, sellItem);
 
 module.exports = router;

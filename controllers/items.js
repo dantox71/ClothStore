@@ -123,6 +123,37 @@ exports.deleteItem = asyncHandler(async(req, res, next) => {
     });
 });
 
+
+
+// @desc   Set sell property to true which will allows to others to buy this item
+// @route  PUT api/v1/items/:id/sell
+// @access Private
+exports.sellItem = asyncHandler(async(req, res, next) => {
+    let item = await Item.findById(req.params.id);
+
+    if (!item) {
+        return next(
+            new ErrorResponse(`Item with id of ${req.params.id} not found`, 404)
+        );
+    }
+
+    //Make sure that authorized to update item
+    if (item.user.toString() !== req.user.id) {
+        return next(new ErrorResponse("Not authorzied to update this item", 401));
+    }
+
+    item = await Item.findByIdAndUpdate(req.params.id, { onsell: true }, {
+        new: true,
+        runValidators: false
+    });
+
+    res.status(200).json({
+        success: true,
+        data: item
+    });
+});
+
+
 // @desc   Upload item photo
 // @route  PUT api/v1/items/id/photo
 // @access Private
