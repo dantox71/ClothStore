@@ -9,7 +9,7 @@ const path = require("path");
 // @route GET api/v1/reviews
 // @access Public
 exports.getReviews = asyncHandler(async(req, res, next) => {
-    const reviews = await Review.find().sort({ "createdAt": -1 });
+    const reviews = await Review.find().sort({ createdAt: -1 });
 
     res.status(200).json({
         success: true,
@@ -21,7 +21,6 @@ exports.getReviews = asyncHandler(async(req, res, next) => {
 // @route GET api/v1/items/:itemsId/reviews
 // @access Public
 exports.getItemReviews = asyncHandler(async(req, res, next) => {
-
     const item = await Item.findById(req.params.itemId);
 
     if (!item) {
@@ -31,8 +30,10 @@ exports.getItemReviews = asyncHandler(async(req, res, next) => {
     }
 
     const reviews = await Review.find({
-        item: req.params.itemId
-    }).populate({ path: 'user', select: 'name image' }).sort({ "createdAt": -1 });
+            item: req.params.itemId
+        })
+        .populate({ path: "user", select: "name image" })
+        .sort({ createdAt: -1 });
 
     res.status(200).json({
         success: true,
@@ -55,7 +56,13 @@ exports.addReview = asyncHandler(async(req, res, next) => {
         );
     }
 
-    const review = await Review.create(req.body);
+    let review = await Review.create(req.body);
+
+    //Find newly created review by ID & populate it with user name/image
+    review = await Review.findById(review._id).populate({
+        path: "user",
+        select: "name image"
+    });
 
     res.status(201).json({
         success: true,
