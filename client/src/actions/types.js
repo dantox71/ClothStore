@@ -22,3 +22,5 @@ export const FILTER_ITEMS = "FILTER_ITEMS";
 export const SET_LOADING = "SET_LOADING";
 export const CLEAR_ITEMS = "CLEAR_ITEMS";
 export const CLEAR_ITEM = "CLEAR_ITEM";
+export const GET_REVIEWS_FOR_ITEM = "GET_REVIEWS_FOR_ITEM";
+export const ADD_REVIEW = "ADD_REVIEW";
