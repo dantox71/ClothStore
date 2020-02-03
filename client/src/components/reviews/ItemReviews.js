@@ -3,22 +3,29 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getItemReviews } from "../../actions/reviews";
 import ReviewItem from "./ReviewItem";
+import Loader from "../layout/Loader";
 
-const ItemReviews = ({ itemId, getItemReviews, reviews: { reviews } }) => {
+const ItemReviews = ({
+  itemId,
+  getItemReviews,
+  reviews: { reviews, loading }
+}) => {
   useEffect(() => {
     getItemReviews(itemId);
   }, [getItemReviews]);
 
-  return reviews.length > 0 ? (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="item-reviews">
       <h2>What other people thinks about this product?</h2>
 
-      {reviews.map(review => (
-        <ReviewItem key={review._id} review={review} />
-      ))}
+      {reviews.length > 0 ? (
+        reviews.map(review => <ReviewItem key={review._id} review={review} />)
+      ) : (
+        <h1>This item has no reviews yet</h1>
+      )}
     </div>
-  ) : (
-    <p>This item has no reviews yet</p>
   );
 };
 
