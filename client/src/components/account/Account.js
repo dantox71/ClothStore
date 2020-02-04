@@ -14,7 +14,7 @@ const Account = ({ auth: { user, isAuthenticated, loading } }) => {
 
   return (
     <section id="profile">
-      <div class="container">
+      <div className="container">
         {loading ? (
           <Loader />
         ) : (
