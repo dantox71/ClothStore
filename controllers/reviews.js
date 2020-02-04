@@ -5,18 +5,6 @@ const asyncHandler = require("../middleware/asyncHandler");
 const ErrorResponse = require("../utils/errorResponse");
 const path = require("path");
 
-// @desc  Get all reviews
-// @route GET api/v1/reviews
-// @access Public
-exports.getReviews = asyncHandler(async(req, res, next) => {
-    const reviews = await Review.find().sort({ createdAt: -1 });
-
-    res.status(200).json({
-        success: true,
-        data: reviews
-    });
-});
-
 // @desc  Get reviews for item
 // @route GET api/v1/items/:itemsId/reviews
 // @access Public
@@ -46,6 +34,7 @@ exports.getItemReviews = asyncHandler(async(req, res, next) => {
 // @access Private
 exports.addReview = asyncHandler(async(req, res, next) => {
     req.body.user = req.user.id;
+    console.log("User:" + req.user.id);
     req.body.item = req.params.itemId;
 
     const item = await Item.findById(req.params.itemId);
