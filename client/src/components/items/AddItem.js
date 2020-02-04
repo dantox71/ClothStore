@@ -9,7 +9,7 @@ const AddItem = ({ addItem, setAlert }) => {
     name: "",
     description: "",
     price: "",
-    category: ""
+    category: "shoes"
   });
 
   const { name, description, category, price } = formData;
@@ -23,6 +23,13 @@ const AddItem = ({ addItem, setAlert }) => {
 
   const onSubmit = e => {
     addItem(formData);
+
+    setFormData({
+      name: "",
+      description: "",
+      price: "",
+      category: "shoes"
+    });
 
     e.preventDefault();
   };
