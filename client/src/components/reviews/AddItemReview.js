@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addReview } from "../../actions/reviews";
+import { setAlert } from "../../actions/alerts";
 
-const AddItemReview = ({ addReview, itemId }) => {
+const AddItemReview = ({
+  addReview,
+  setAlert,
+  itemId,
+  auth: { isAuthenticated }
+}) => {
   const [formData, setFormData] = useState({
     rate: "",
     text: ""
@@ -20,12 +26,17 @@ const AddItemReview = ({ addReview, itemId }) => {
 
   const onSubmit = e => {
     //Add review
-    addReview(itemId, formData);
 
-    setFormData({
-      rate: "",
-      text: ""
-    });
+    if (!isAuthenticated) {
+      setAlert("To add review you have be logged in");
+    } else {
+      addReview(itemId, formData);
+
+      setFormData({
+        rate: "",
+        text: ""
+      });
+    }
 
     e.preventDefault();
   };
@@ -54,7 +65,13 @@ const AddItemReview = ({ addReview, itemId }) => {
 
 AddItemReview.propTypes = {
   itemId: PropTypes.string.isRequired,
-  addReview: PropTypes.func.isRequired
+  addReview: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
-export default connect(null, { addReview })(AddItemReview);
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { addReview, setAlert })(AddItemReview);
