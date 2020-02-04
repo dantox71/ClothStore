@@ -34,7 +34,6 @@ exports.getItemReviews = asyncHandler(async(req, res, next) => {
 // @access Private
 exports.addReview = asyncHandler(async(req, res, next) => {
     req.body.user = req.user.id;
-    console.log("User:" + req.user.id);
     req.body.item = req.params.itemId;
 
     const item = await Item.findById(req.params.itemId);
@@ -42,6 +41,13 @@ exports.addReview = asyncHandler(async(req, res, next) => {
     if (!item) {
         return next(
             new ErrorResponse(`Item with id of ${req.params.itemId} not found`, 404)
+        );
+    }
+
+    //Check if logged in user is owner of item
+    if (item.user.toString() === req.user.id) {
+        return next(
+            new ErrorResponse("You can't add review to your own item", 400)
         );
     }
 
