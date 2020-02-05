@@ -24,3 +24,5 @@ export const CLEAR_ITEMS = "CLEAR_ITEMS";
 export const CLEAR_ITEM = "CLEAR_ITEM";
 export const GET_REVIEWS_FOR_ITEM = "GET_REVIEWS_FOR_ITEM";
 export const ADD_REVIEW = "ADD_REVIEW";
+export const GET_CART_ITEMS = "GET_CART_ITEMS";
+export const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
