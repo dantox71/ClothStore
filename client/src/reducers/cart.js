@@ -1,5 +1,6 @@
 import {
     GET_CART_ITEMS,
+    ADD_ITEM_TO_CART
 } from '../actions/types';
 
 
@@ -17,6 +18,9 @@ export default (state = initialState, action) => {
 
     switch (type) {
 
+
+
+
         case GET_CART_ITEMS:
             return {
                 ...state,
@@ -25,6 +29,12 @@ export default (state = initialState, action) => {
             }
 
 
+        case ADD_ITEM_TO_CART:
+            return {
+                ...state,
+                items: [...state.items, payload],
+                loading: false
+            }
 
 
         default:
