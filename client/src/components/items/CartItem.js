@@ -1,7 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { removeItemFromCart } from "../../actions/cart";
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, removeItemFromCart }) => {
+  const onRemove = itemId => {
+    if (window.confirm("Are you sure you want delete this item from cart?")) {
+      removeItemFromCart(itemId);
+    }
+  };
+
   return (
     <div className="item">
       <img
@@ -15,7 +23,11 @@ const CartItem = ({ item }) => {
           Price: <span className="text-bold">${item.price}</span>
         </p>
 
-        <a href="#!" className="btn btn-primary">
+        <a
+          href="#!"
+          className="btn btn-primary"
+          onClick={() => onRemove(item._id)}
+        >
           Remove
         </a>
       </div>
@@ -24,7 +36,8 @@ const CartItem = ({ item }) => {
 };
 
 CartItem.propTypes = {
+  removeItemFromCart: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired
 };
 
-export default CartItem;
+export default connect(null, { removeItemFromCart })(CartItem);
