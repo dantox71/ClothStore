@@ -54,7 +54,7 @@ exports.addItemToCart = asyncHandler(async(req, res, next) => {
 
     res.status(201).json({
         success: true,
-        data: user.cart
+        data: item
     });
 });
 
