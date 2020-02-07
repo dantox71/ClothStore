@@ -92,3 +92,26 @@ export const clearCart = () => async dispatch => {
         dispatch(setAlert(error));
     }
 };
+
+export const buyItemsInCart = () => async dispatch => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+
+    try {
+        const res = await axios.post("/api/v1/cart/buy", config);
+
+        //Clear cart
+        dispatch({
+            type: CLEAR_CART
+        });
+
+        dispatch(setAlert("Items from cart has been bought"));
+    } catch (err) {
+        const error = err.response.data.error;
+
+        dispatch(setAlert(error));
+    }
+};
