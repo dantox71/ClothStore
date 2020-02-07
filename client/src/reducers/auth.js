@@ -31,8 +31,6 @@ export default (state = initialState, action) => {
                 user: payload
             };
 
-
-
         case REGISTER:
         case LOGIN:
             localStorage.setItem("token", payload);
@@ -47,7 +45,7 @@ export default (state = initialState, action) => {
         case LOGIN_FAIL:
         case AUTH_FAIL:
         case LOGOUT:
-            localStorage.removeItem('token');
+            localStorage.removeItem("token");
             return {
                 ...state,
                 token: null,
@@ -57,20 +55,17 @@ export default (state = initialState, action) => {
                 error: payload
             };
 
-
         case EDIT_ACCOUNT_DATA:
-
             return {
                 ...state,
                 user: payload
             };
 
-
         case CLEAR_ERROR:
             return {
                 ...state,
                 error: null
-            }
+            };
 
         default:
             return state;

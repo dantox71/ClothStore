@@ -18,14 +18,13 @@ const EditItem = ({
 
     if (item) {
       setFormData({
-        ...formData,
         name: item.name,
-        category: item.category,
         description: item.description,
+        category: item.category,
         price: item.price
       });
     }
-  }, [getSingleItem]);
+  }, [getSingleItem, match.params.itemId]);
 
   const [formData, setFormData] = useState({
     name: "",
