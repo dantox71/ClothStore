@@ -7,8 +7,10 @@ import Loader from "../layout/Loader";
 import cart from "../layout/cart.svg";
 import AddItemReview from "../reviews/AddItemReview";
 import ItemReviews from "../reviews/ItemReviews";
+import { addItemToCart } from "../../actions/cart";
 
 const SingleItem = ({
+  addItemToCart,
   match,
   getSingleItem,
   items: { item, loading },
@@ -28,6 +30,14 @@ const SingleItem = ({
     return elements;
   };
 
+  const onAddItemToCart = itemId => {
+    if (
+      window.confirm("Are you sure that you want to add this item to cart?")
+    ) {
+      addItemToCart(itemId);
+    }
+  };
+
   return (
     <section id="item">
       <div className="container">
@@ -44,7 +54,11 @@ const SingleItem = ({
                 />
 
                 <div className="item-menu">
-                  <Link to="/cart" className="shopping-cart-link">
+                  <Link
+                    to="/cart"
+                    className="shopping-cart-link"
+                    onClick={() => onAddItemToCart(item._id)}
+                  >
                     <img src={cart} alt="Cart Icon" />
                   </Link>
 
@@ -69,9 +83,13 @@ const SingleItem = ({
                 <p>
                   Price: <span className="text-bold">${item.price}</span>
                 </p>
-                <a href="#!" className="btn btn-primary">
+                <Link
+                  to="/cart"
+                  className="btn btn-primary"
+                  onClick={() => onAddItemToCart(item._id)}
+                >
                   Add To Cart
-                </a>
+                </Link>
               </div>
             </div>
             <AddItemReview itemId={item._id} />
@@ -85,6 +103,7 @@ const SingleItem = ({
 
 SingleItem.propTypes = {
   getSingleItem: PropTypes.func.isRequired,
+  addItemToCart: PropTypes.func.isRequired,
   items: PropTypes.object.isRequired
 };
 
@@ -93,4 +112,6 @@ const mapStateToProps = state => ({
   reviews: state.reviews
 });
 
-export default connect(mapStateToProps, { getSingleItem })(SingleItem);
+export default connect(mapStateToProps, { getSingleItem, addItemToCart })(
+  SingleItem
+);
