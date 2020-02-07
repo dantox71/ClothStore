@@ -95,6 +95,40 @@ exports.removeItemFromCart = asyncHandler(async(req, res, next) => {
     });
 });
 
+
+
+// @desc   Clear user cart
+// @route  DELETE api/v1/cart/clear
+// @access Private 
+exports.clearUserCart = asyncHandler(async(req, res, next) => {
+    let user = await User.findById(req.user.id);
+
+
+    user.cart.map(async item => {
+
+        await Item.findByIdAndUpdate(item._id, {
+            incart: false
+        }, {
+            runValidators: false
+        })
+
+
+    })
+
+
+    user.cart = [];
+    await user.save();
+
+
+
+    res.status(200).json({
+        success: true,
+        data: user.cart
+    });
+
+
+})
+
 //@desc
 //   This function is responsible for transfering money to owners of bought by
 //   logged in user items & changing owners of those items
