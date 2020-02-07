@@ -8,6 +8,17 @@ import { logout } from "../../actions/auth";
 const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
   const [menuOpened, toggleMenu] = useState(false);
 
+  const onLogout = () => {
+    if (
+      window.confirm(
+        "Are you sure that you want to logout ? It will clear items in your cart"
+      )
+    ) {
+      logout();
+      toggleMenu(!menuOpened);
+    }
+  };
+
   const guestLinks = (
     <Fragment>
       <li>
@@ -56,13 +67,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
         )}
       </li>
       <li>
-        <Link
-          to="/login"
-          onClick={() => {
-            logout();
-            toggleMenu(!menuOpened);
-          }}
-        >
+        <Link to="/login" onClick={onLogout}>
           Logout <i className="fa fa-sign-out-alt"> </i>
         </Link>
       </li>

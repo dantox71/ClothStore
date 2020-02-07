@@ -12,8 +12,9 @@ import {
 } from "./types";
 import axios from "axios";
 import setAuthHeader from "../../src/utils/setAuthHeader";
-import { setAlert } from '../actions/alerts';
-import store from '../store';
+import { setAlert } from "../actions/alerts";
+import store from "../store";
+import { clearCart } from "./cart";
 
 export const loadUser = () => async dispatch => {
     if (localStorage.token) {
@@ -28,11 +29,10 @@ export const loadUser = () => async dispatch => {
             payload: res.data.data
         });
     } catch (err) {
-
         dispatch({
             type: AUTH_FAIL,
             payload: err.response.data.error
-        })
+        });
     }
 };
 
@@ -56,7 +56,6 @@ export const register = formData => async dispatch => {
         dispatch(loadUser());
         store.dispatch(setAlert("Account Registered"));
     } catch (err) {
-
         dispatch({
             type: REGISTER_FAIL,
             payload: err.response.data.error
@@ -84,8 +83,6 @@ export const login = formData => async dispatch => {
         dispatch(loadUser());
         store.dispatch(setAlert("Logged In"));
     } catch (err) {
-
-
         dispatch({
             type: LOGIN_FAIL,
             payload: err.response.data.error
@@ -93,18 +90,16 @@ export const login = formData => async dispatch => {
     }
 };
 
-
 export const clearError = () => dispatch => {
-
     dispatch({
         type: CLEAR_ERROR
-    })
-}
-
-
-
+    });
+};
 
 export const logout = () => dispatch => {
+    //Clear user cart
+    dispatch(clearCart());
+
     dispatch({
         type: LOGOUT
     });
@@ -115,7 +110,7 @@ export const logout = () => dispatch => {
     });
     dispatch({
         type: CLEAR_ITEM
-    })
+    });
 
     store.dispatch(setAlert("Logged Out"));
 };

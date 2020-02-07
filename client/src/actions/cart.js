@@ -1,86 +1,94 @@
 import {
     GET_CART_ITEMS,
-    ADD_ITEM
-} from './types';
-import axios from 'axios';
-import { setAlert } from './alerts';
-
-
-
-
-
-
-
+    ADD_ITEM_TO_CART,
+    REMOVE_ITEM_FROM_CART,
+    CLEAR_CART
+} from "./types";
+import axios from "axios";
+import { setAlert } from "./alerts";
 
 export const getCartItems = () => async dispatch => {
-
     try {
-
-
-        const res = await axios.get('/api/v1/cart/');
-
-
+        const res = await axios.get("/api/v1/cart/");
 
         try {
             dispatch({
                 type: GET_CART_ITEMS,
                 payload: res.data.data
-            })
-        } catch (err) {
-
-        }
-
-
-
-
-
-
-
+            });
+        } catch (err) {}
     } catch (err) {
         const error = err.response.data.error;
 
-
-
         dispatch(setAlert(error));
-
-
     }
-
-
-}
-
-
-
-
+};
 
 export const addItemToCart = itemId => async dispatch => {
-
-
     const config = {
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         }
-    }
-
-
+    };
 
     try {
-
         const res = await axios.post(`/api/v1/cart/${itemId}`);
 
         dispatch({
-            type: ADD_ITEM,
+            type: ADD_ITEM_TO_CART,
             payload: res.data.data
-        })
+        });
 
-        dispatch(setAlert('Item added to cart'));
-
-
+        dispatch(setAlert("Item added to cart"));
     } catch (err) {
         const error = err.response.data.error;
 
         dispatch(setAlert(error));
-
-
     }
-}
+};
+
+export const removeItemFromCart = itemId => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/v1/cart/${itemId}`);
+
+        dispatch({
+            type: REMOVE_ITEM_FROM_CART,
+            payload: itemId
+        });
+
+        dispatch(setAlert("Item removed from cart"));
+    } catch (err) {
+        const error = err.response.data.error;
+
+        //Check if there's more than one error and if so , show them all.
+        if (error.indexOf(",") > -1) {
+            const errors = error.split(",");
+
+            errors.forEach(error => {
+                dispatch(setAlert(error));
+            });
+        } else {
+            dispatch(setAlert(error));
+        }
+    }
+};
+
+export const clearCart = () => async dispatch => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+
+    try {
+        const res = await axios.delete("/api/v1/cart/clear");
+
+        dispatch({
+            type: CLEAR_CART
+        });
+    } catch (err) {
+        const error = err.response.data.error;
+
+        dispatch(setAlert(error));
+    }
+};
