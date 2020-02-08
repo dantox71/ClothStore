@@ -4,7 +4,7 @@
     "description": "Backend for e-commerce shop project",
     "main": "server.js",
     "scripts": {
-        "start": "SET NODE_ENV=production &&  node server.js",
+        "start": "set NODE_ENV=production &&  node server",
         "server": "nodemon server.js",
         "client": "npm run start --prefix client",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
