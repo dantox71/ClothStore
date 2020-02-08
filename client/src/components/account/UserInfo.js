@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deleteAccount } from "../../actions/account";
+import { uploadUserPhoto } from "../../actions/account";
 
-const UserInfo = ({ deleteAccount, auth: { user } }) => {
+const UserInfo = ({ uploadUserPhoto, deleteAccount, auth: { user } }) => {
+  const [image, setImage] = useState("");
+  const [imageName, setImageName] = useState("");
+
   const onAccountDelete = () => {
     if (
       window.confirm(
@@ -15,6 +19,21 @@ const UserInfo = ({ deleteAccount, auth: { user } }) => {
     }
   };
 
+  const onPhotoChange = e => {
+    setImage(e.target.files[0]);
+    setImageName(e.target.files[0].name);
+  };
+
+  const onPhotoUpload = e => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("file", image);
+
+    console.log(formData);
+
+    // uploadUserPhoto(formData);
+  };
+
   return (
     <div className="profile-top">
       <img
@@ -22,18 +41,20 @@ const UserInfo = ({ deleteAccount, auth: { user } }) => {
         src={`${process.env.PUBLIC_URL}/uploads/images/users/${user.image}`}
         alt="User Avatar"
       />
-      <div className="image-upload">
+      <form className="image-upload" onSubmit={onPhotoUpload}>
         <label className="d-flex-column">
           <i className="far fa-images fa-2x"> </i>
-          <input type="file" name="file" />
+          <input type="file" onChange={onPhotoChange} />
         </label>
-        <a href="#!" className="btn btn-primary">
-          Click To Upload
-        </a>
-      </div>
+        <input
+          type="submit"
+          value="Click To Upload"
+          className="btn btn-primary"
+        />
+      </form>
       <h2> {user.name} </h2>
       <p>
-        You have: <span className="text-bold"> $ {user.money} </span>
+        You have: <span className="text-bold"> ${user.money} </span>
       </p>
       <div className="profile-buttons">
         <Link to="/edit-account" className="btn btn-primary">
@@ -49,11 +70,14 @@ const UserInfo = ({ deleteAccount, auth: { user } }) => {
 
 UserInfo.propTypes = {
   auth: PropTypes.object.isRequired,
-  deleteAccount: PropTypes.func.isRequired
+  deleteAccount: PropTypes.func.isRequired,
+  uploadUserPhoto: PropTypes.func.isRequired
 };
 
 const mapStateToPropTypes = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToPropTypes, { deleteAccount })(UserInfo);
+export default connect(mapStateToPropTypes, { uploadUserPhoto, deleteAccount })(
+  UserInfo
+);
