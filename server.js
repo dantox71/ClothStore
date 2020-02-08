@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-const morgan = require("morgan");
 const colors = require("colors");
 const bodyParser = require("body-parser");
 const rateLimit = require("express-rate-limit");
@@ -55,6 +54,7 @@ app.use(hpp());
 colors.enable();
 
 if (process.env.NODE_ENV === "development") {
+    const morgan = require("morgan");
     app.use(morgan("dev"));
 }
 
