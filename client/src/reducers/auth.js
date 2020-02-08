@@ -7,7 +7,8 @@ import {
     LOGOUT,
     CLEAR_ERROR,
     AUTH_FAIL,
-    EDIT_ACCOUNT_DATA
+    EDIT_ACCOUNT_DATA,
+    UPLOAD_USER_PHOTO
 } from "../actions/types";
 
 const initialState = {
@@ -53,6 +54,12 @@ export default (state = initialState, action) => {
                 loading: false,
                 user: null,
                 error: payload
+            };
+
+        case UPLOAD_USER_PHOTO:
+            return {
+                ...state,
+                user: {...state.user, image: payload }
             };
 
         case EDIT_ACCOUNT_DATA:

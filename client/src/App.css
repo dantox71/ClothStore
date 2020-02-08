@@ -1308,14 +1308,20 @@ label i {
     margin: 0.5rem auto 3rem auto;
 }
 
-.image-upload a {
+.image-upload input[type="submit"] {
     font-size: 13px;
+    background: white;
     border: 1px solid #843a46;
     height: 35px;
     display: flex;
     align-items: center;
     margin-left: 10px;
     padding: 10px;
+}
+
+.image-upload input[type="submit"]:hover {
+    background-color: #843a46;
+    color: white;
 }
 
 input[type='file'] {

@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const morgan = require("morgan");
@@ -57,20 +58,22 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
 
-app.get("/", (req, res) => {
-    res.send("Hello, World");
-});
-
 //Mount routes
 app.use("/api/v1/items", items);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/reviews", reviews);
 app.use("/api/v1/cart", cart);
 
-app.use(errorHandler);
+//Serve static assets in production
+if (proccess.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
 
-//Set public as a static folder
-app.use(express.static("public"));
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    });
+}
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

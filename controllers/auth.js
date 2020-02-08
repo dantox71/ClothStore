@@ -149,7 +149,7 @@ exports.uploadUserPhoto = asyncHandler(async(req, res, next) => {
 
     //Check if photo has been uploaded
     if (!req.files) {
-        return next(new ErrorResponse(`Please upload photo`, 404));
+        return next(new ErrorResponse(`Please upload photo`, 400));
     }
 
     const file = req.files.file;
@@ -165,20 +165,24 @@ exports.uploadUserPhoto = asyncHandler(async(req, res, next) => {
     }
 
     const fileExtension = path.extname(file.name);
+
     file.name = `user_photo_${user._id}${fileExtension}`;
 
-    file.mv(`${process.env.FILE_UPLOAD_PATH}/images/users/${file.name}`, async err => {
-        if (err) {
-            return next(new ErrorResponse("Problem with file upload", 500));
+    file.mv(
+        `${process.env.FILE_UPLOAD_PATH}/images/users/${file.name}`,
+        async err => {
+            if (err) {
+                return next(new ErrorResponse("Problem with file upload", 500));
+            }
+
+            await User.findByIdAndUpdate(req.user.id, { image: file.name });
+
+            res.status(200).json({
+                success: true,
+                data: file.name
+            });
         }
-
-        await User.findByIdAndUpdate(req.user.id, { image: file.name });
-
-        res.status(200).json({
-            success: true,
-            data: file.name
-        });
-    });
+    );
 });
 
 //Create token,set localstorage & send response

@@ -68,7 +68,7 @@ export const uploadUserPhoto = formData => async dispatch => {
             "Content-Type": "multipart/form-data"
         }
     };
-    4;
+
     try {
         const res = await axios.put("/api/v1/auth/me/photo", formData, config);
 
