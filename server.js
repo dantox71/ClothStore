@@ -65,7 +65,7 @@ app.use("/api/v1/reviews", reviews);
 app.use("/api/v1/cart", cart);
 
 //Serve static assets in production
-if (proccess.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 
     app.get("*", (req, res) => {
