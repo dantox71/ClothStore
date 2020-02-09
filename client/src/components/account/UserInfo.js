@@ -31,7 +31,7 @@ const UserInfo = ({ uploadUserPhoto, deleteAccount, auth: { user } }) => {
 
     console.log(formData);
 
-    // uploadUserPhoto(formData);
+    uploadUserPhoto(formData);
   };
 
   return (
