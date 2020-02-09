@@ -165,7 +165,6 @@ exports.uploadUserPhoto = asyncHandler(async(req, res, next) => {
     }
 
     const fileExtension = path.extname(file.name);
-
     file.name = `user_photo_${user._id}${fileExtension}`;
 
     file.mv(
