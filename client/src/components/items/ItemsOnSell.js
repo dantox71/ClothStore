@@ -91,13 +91,6 @@ const ItemsOnSell = ({
                 </div>
               ))}
             </div>
-            <div className="pagination">
-              <i className="fa fa-arrow-left"> </i>
-              <span className="current"> 1 </span> <span> 2 </span>
-              <span> 3 </span> <span> 4 </span> <span> 5 </span>
-              <span> .... </span> <span> 12 </span>
-              <i className="fa fa-arrow-right"> </i>
-            </div>
           </Fragment>
         )}
       </section>
