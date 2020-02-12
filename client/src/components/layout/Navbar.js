@@ -50,7 +50,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
         </Link>
       </li>
       <li>
-        <Link to="/home" onClick={() => toggleMenu(!menuOpened)}>
+        <Link to="/" onClick={() => toggleMenu(!menuOpened)}>
           Home
         </Link>
       </li>
@@ -77,7 +77,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
   return (
     <nav id="main-navigation" className={menuOpened ? "opened" : ""}>
       <div className="container">
-        <Link to="/home">
+        <Link to="/">
           <h1 className="brand"> ClothStore </h1>
         </Link>
         <ul className="nav-list">

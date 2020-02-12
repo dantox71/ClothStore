@@ -25,7 +25,7 @@ const Login = ({
 
   //Redirect if authenticated
   if (isAuthenticated) {
-    return <Redirect to="/home" />;
+    return <Redirect to="/" />;
   }
 
   const { email, password } = formData;
