@@ -137,6 +137,10 @@ exports.buyItemsInCart = asyncHandler(async(req, res, next) => {
         return next(new ErrorResponse("You don't have enough money", 400));
     }
 
+    if (!user.cart.length) {
+        return next(new ErrorResponse("Cart is empty", 400));
+    }
+
     //Change owners of items to logged in user
     user.cart.map(async item => {
         //Find owner of item
