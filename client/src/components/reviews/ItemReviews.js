@@ -12,7 +12,7 @@ const ItemReviews = ({
 }) => {
   useEffect(() => {
     getItemReviews(itemId);
-  }, [getItemReviews]);
+  }, [getItemReviews, itemId]);
 
   return loading ? (
     <Loader />

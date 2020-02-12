@@ -18,7 +18,7 @@ const SingleItem = ({
 }) => {
   useEffect(() => {
     getSingleItem(match.params.itemId);
-  }, [getSingleItem]);
+  }, [getSingleItem, match.params.itemId]);
 
   const itemStarRating = rate => {
     let elements = [];
@@ -49,7 +49,7 @@ const SingleItem = ({
               <div className="item-info-left">
                 <img
                   src={`${process.env.PUBLIC_URL}/uploads/images/items/${item.image}`}
-                  alt="Item Image"
+                  alt=""
                   className="item-img"
                 />
 

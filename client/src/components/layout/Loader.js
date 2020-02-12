@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import loading from "./loading.gif";
 
 const Loader = props => {

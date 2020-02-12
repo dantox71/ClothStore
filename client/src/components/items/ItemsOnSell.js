@@ -51,7 +51,7 @@ const ItemsOnSell = ({
                 <div className="item" key={item._id}>
                   <img
                     src={`${process.env.PUBLIC_URL}/uploads/images/items/${item.image}`}
-                    alt="Item Image"
+                    alt=""
                     className="item-img"
                   />
                   <div className="item-menu">

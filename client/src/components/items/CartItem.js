@@ -14,7 +14,7 @@ const CartItem = ({ item, removeItemFromCart }) => {
     <div className="item">
       <img
         src={`${process.env.PUBLIC_URL}/uploads/images/items/${item.image}`}
-        alt="Item Image"
+        alt=""
       />
       <div className="item-description">
         <h2>{item.name}</h2>

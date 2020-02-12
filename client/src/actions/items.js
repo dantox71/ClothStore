@@ -38,8 +38,6 @@ export const getItemsOnSell = () => async dispatch => {
     } catch (err) {
         const error = err.response.data.error;
 
-        console.log(err);
-
         dispatch(setAlert(error));
     }
 };
@@ -167,8 +165,6 @@ export const editItem = (itemId, formData) => async dispatch => {
 };
 
 export const setLoading = () => dispatch => {
-    console.log("Loading set...");
-
     dispatch({
         type: SET_LOADING
     });

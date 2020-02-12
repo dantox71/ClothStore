@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { register, clearError } from "../../actions/auth";
@@ -16,7 +16,7 @@ const Register = ({
       setAlert(error);
       clearError();
     }
-  }, [error]);
+  }, [error, clearError, setAlert]);
 
   const [formData, setFormData] = useState({
     name: "",

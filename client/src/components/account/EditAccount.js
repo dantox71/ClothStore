@@ -20,7 +20,7 @@ const EditAccount = ({
       setAlert(error);
       clearError();
     }
-  }, [error]);
+  }, [error, setAlert, clearError]);
 
   const [formData, setFormData] = useState({
     name: "",

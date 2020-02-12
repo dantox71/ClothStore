@@ -11,12 +11,10 @@ export const getCartItems = () => async dispatch => {
     try {
         const res = await axios.get("/api/v1/cart/");
 
-        try {
-            dispatch({
-                type: GET_CART_ITEMS,
-                payload: res.data.data
-            });
-        } catch (err) {}
+        dispatch({
+            type: GET_CART_ITEMS,
+            payload: res.data.data
+        });
     } catch (err) {
         const error = err.response.data.error;
 
@@ -25,12 +23,6 @@ export const getCartItems = () => async dispatch => {
 };
 
 export const addItemToCart = itemId => async dispatch => {
-    const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
-
     try {
         const res = await axios.post(`/api/v1/cart/${itemId}`);
 
@@ -49,7 +41,7 @@ export const addItemToCart = itemId => async dispatch => {
 
 export const removeItemFromCart = itemId => async dispatch => {
     try {
-        const res = await axios.delete(`/api/v1/cart/${itemId}`);
+        await axios.delete(`/api/v1/cart/${itemId}`);
 
         dispatch({
             type: REMOVE_ITEM_FROM_CART,
@@ -74,14 +66,8 @@ export const removeItemFromCart = itemId => async dispatch => {
 };
 
 export const clearCart = () => async dispatch => {
-    const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
-
     try {
-        const res = await axios.delete("/api/v1/cart/clear");
+        await axios.delete("/api/v1/cart/clear");
 
         dispatch({
             type: CLEAR_CART
@@ -101,7 +87,7 @@ export const buyItemsInCart = () => async dispatch => {
     };
 
     try {
-        const res = await axios.post("/api/v1/cart/buy", config);
+        await axios.post("/api/v1/cart/buy", config);
 
         //Clear cart
         dispatch({

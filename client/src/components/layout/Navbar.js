@@ -46,7 +46,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
     <Fragment>
       <li>
         <Link to="/me" onClick={() => toggleMenu(!menuOpened)}>
-          Welcome <span className="text-bold ml-1"> {user && user.name} </span>
+          My Account
         </Link>
       </li>
       <li>
@@ -78,7 +78,11 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
     <nav id="main-navigation" className={menuOpened ? "opened" : ""}>
       <div className="container">
         <Link to="/">
-          <h1 className="brand"> ClothStore </h1>
+          <h1 className="brand">
+            {" "}
+            <span className="text-bold">Cloth</span>
+            <i>Store</i>
+          </h1>
         </Link>
         <ul className="nav-list">
           {isAuthenticated && !loading ? authLinks : guestLinks}

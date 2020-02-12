@@ -67,7 +67,7 @@
 .alert {
     border: 5px solid #612a33;
     padding: 0.5rem 1.5rem;
-    font-size: 13px;
+    font-size: 14px;
     margin-bottom: 30px;
     opacity: 0;
     z-index: 1000;
@@ -108,7 +108,7 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 660px) {
     .alerts {
         position: fixed;
         right: 5%;
@@ -121,6 +121,7 @@
     .alert {
         width: 90%;
         margin: auto;
+        font-size: 10px;
         top: -100%;
     }
 }
@@ -143,10 +144,11 @@
 
 #main-navigation .container .brand {
     font-size: 1.6rem;
+    z-index: 1;
 }
 
 #main-navigation .container .nav-list {
-    z-index: 100;
+    z-index: 1;
     display: flex;
 }
 
@@ -208,6 +210,7 @@
     }
     #main-navigation.opened .container .nav-list {
         right: 0;
+        z-index: -1;
     }
     #main-navigation .container .nav-list li a {
         color: white;
@@ -284,6 +287,7 @@
     }
     #main-navigation.opened .brand {
         color: white;
+        z-index: 1000000000;
     }
 }
 
@@ -1324,7 +1328,7 @@ label i {
     color: white;
 }
 
-input[type='file'] {
+input[type="file"] {
     display: none;
 }
 
@@ -1425,19 +1429,19 @@ input[type='file'] {
     }
 }
 
-@media(max-width:900px) {
+@media (max-width: 900px) {
     .modal-content {
         width: 70%;
     }
 }
 
-@media(max-width:500px) {
+@media (max-width: 500px) {
     .modal-content {
         width: 90%;
     }
 }
 
-@media(max-width:500px) {
+@media (max-width: 500px) {
     .modal-content .modal-btns {
         flex-direction: column;
         align-items: center;

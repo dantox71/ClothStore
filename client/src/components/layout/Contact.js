@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 const Contact = props => {
   return (
@@ -22,7 +21,6 @@ const Contact = props => {
               name="message"
               cols="30"
               placeholder="Enter Your Message"
-              value="Enter Your Message"
               rows="10"
             ></textarea>
           </div>
@@ -37,7 +35,5 @@ const Contact = props => {
     </section>
   );
 };
-
-Contact.propTypes = {};
 
 export default Contact;

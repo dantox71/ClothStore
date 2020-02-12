@@ -30,8 +30,6 @@ export const editAccountData = formData => async dispatch => {
 
         store.dispatch(setAlert("Changed"));
     } catch (err) {
-        console.log(err.response.data.error);
-
         dispatch({
             type: EDIT_ACCOUNT_FAIL,
             payload: err.response.data.error
@@ -49,12 +47,10 @@ export const editAccountPassword = formData => async dispatch => {
     const body = JSON.stringify(formData);
 
     try {
-        const res = await axios.put("/api/v1/auth/me/password", body, config);
+        await axios.put("/api/v1/auth/me/password", body, config);
 
         store.dispatch(setAlert("Changed"));
     } catch (err) {
-        console.log(err.response.data.error);
-
         dispatch({
             type: EDIT_ACCOUNT_FAIL,
             payload: err.response.data.error
@@ -94,12 +90,6 @@ export const uploadUserPhoto = formData => async dispatch => {
 };
 
 export const deleteAccount = () => async dispatch => {
-    const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
-
     try {
         //Remove account
         await axios.delete("api/v1/auth/delete");

@@ -7,7 +7,6 @@ import { uploadUserPhoto } from "../../actions/account";
 
 const UserInfo = ({ uploadUserPhoto, deleteAccount, auth: { user } }) => {
   const [image, setImage] = useState("");
-  const [imageName, setImageName] = useState("");
 
   const onAccountDelete = () => {
     if (
@@ -21,15 +20,12 @@ const UserInfo = ({ uploadUserPhoto, deleteAccount, auth: { user } }) => {
 
   const onPhotoChange = e => {
     setImage(e.target.files[0]);
-    setImageName(e.target.files[0].name);
   };
 
   const onPhotoUpload = e => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", image);
-
-    console.log(formData);
 
     uploadUserPhoto(formData);
   };

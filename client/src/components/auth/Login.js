@@ -16,7 +16,7 @@ const Login = ({
       setAlert(error);
       clearError();
     }
-  }, [error]);
+  }, [error, clearError, setAlert]);
 
   const [formData, setFormData] = useState({
     email: "",

@@ -15,15 +15,6 @@ const EditItem = ({
 }) => {
   useEffect(() => {
     getSingleItem(match.params.itemId);
-
-    if (item) {
-      setFormData({
-        name: item.name,
-        description: item.description,
-        category: item.category,
-        price: item.price
-      });
-    }
   }, [getSingleItem, match.params.itemId]);
 
   const [formData, setFormData] = useState({
@@ -33,11 +24,11 @@ const EditItem = ({
     price: ""
   });
 
+  const { name, description, price, category } = formData;
+
   if (!isAuthenticated) {
     return <Redirect to="/login" />;
   }
-
-  const { name, description, price, category } = formData;
 
   const onChange = e => {
     setFormData({
@@ -47,6 +38,10 @@ const EditItem = ({
   };
 
   const onSubmit = e => {
+    if (name === "" && description === "" && category === "" && price === "") {
+      setAlert("Change something");
+    }
+
     editItem(item._id, formData);
 
     setFormData({
@@ -59,7 +54,7 @@ const EditItem = ({
     e.preventDefault();
   };
 
-  return loading ? (
+  return loading || !item ? (
     <Loader />
   ) : (
     <section id="edit-item">
@@ -113,7 +108,7 @@ const EditItem = ({
 EditItem.propTypes = {
   getSingleItem: PropTypes.func.isRequired,
   editItem: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired,
+  items: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 

@@ -35,6 +35,7 @@ const UserItems = ({ editItem, getUserItems, items: { items } }) => {
             <div>
               <img
                 src={`${process.env.PUBLIC_URL}/uploads/images/items/${item.image}`}
+                alt=""
               />
               <div className="image-upload">
                 <label className="d-flex-column">

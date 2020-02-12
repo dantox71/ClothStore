@@ -59,7 +59,11 @@ const Footer = props => {
       <div className="footer-bottom">
         <p>
           Created By
-          <a target="_blank" href="http://daniellagowski.netlify.com">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="http://daniellagowski.netlify.com"
+          >
             {" "}
             Daniel Łagowski.{" "}
           </a>
