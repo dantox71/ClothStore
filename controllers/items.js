@@ -16,7 +16,7 @@ exports.getItems = asyncHandler(async(req, res, next) => {
 exports.getLoggedInUserItems = asyncHandler(async(req, res, next) => {
     const items = await Item.find({
         user: req.user.id
-    }).sort({ "createdAt": -1 });
+    }).sort({ createdAt: -1 });
 
     res.status(200).json({
         success: true,
@@ -76,18 +76,40 @@ exports.addItem = asyncHandler(async(req, res, next) => {
 exports.updateItem = asyncHandler(async(req, res, next) => {
     let item = await Item.findById(req.params.id);
 
+    const fieldsToUpdate = {};
+
+    if (req.body.name) {
+        fieldsToUpdate.name = req.body.name;
+    }
+    if (req.body.description) {
+        fieldsToUpdate.description = req.body.description;
+    }
+    if (req.body.category) {
+        fieldsToUpdate.category = req.body.category;
+    }
+    if (req.body.price) {
+        fieldsToUpdate.price = req.body.price;
+    }
+
     if (!item) {
         return next(
             new ErrorResponse(`Item with id of ${req.params.id} not found`, 404)
         );
     }
 
+    //Check if user haven't changed anything
+    if (Object.entries(fieldsToUpdate).length === 0) {
+        new ErrorResponse("Change someting", 400);
+    }
+
+    console.log(fieldsToUpdate);
+
     //Make sure that authorized to update item
     if (item.user.toString() !== req.user.id) {
         return next(new ErrorResponse("Not authorzied to update this item", 401));
     }
 
-    item = await Item.findByIdAndUpdate(req.params.id, req.body, {
+    item = await Item.findByIdAndUpdate(req.params.id, fieldsToUpdate, {
         new: true,
         runValidators: true
     });
@@ -123,10 +145,6 @@ exports.deleteItem = asyncHandler(async(req, res, next) => {
     });
 });
 
-
-
-
-
 // @desc   Upload item photo
 // @route  PUT api/v1/items/id/photo
 // @access Private
@@ -156,7 +174,7 @@ exports.uploadItemPhoto = asyncHandler(async(req, res, next) => {
         return next(new ErrorResponse("Photo is to big", 400));
     }
 
-    //Check if uploaded file is image 
+    //Check if uploaded file is image
     if (!file.mimetype.startsWith("image")) {
         return next(new ErrorResponse("Please upload an image file", 400));
     }
@@ -164,17 +182,20 @@ exports.uploadItemPhoto = asyncHandler(async(req, res, next) => {
     const fileExtension = path.extname(file.name);
     file.name = `item_photo_${item._id}${fileExtension}`;
 
-    file.mv(`${process.env.FILE_UPLOAD_PATH}/images/items/${file.name}`, async err => {
-        if (err) {
-            console.error(err);
-            next(new ErrorResponse("Problem with file upload", 500));
+    file.mv(
+        `${process.env.FILE_UPLOAD_PATH}/images/items/${file.name}`,
+        async err => {
+            if (err) {
+                console.error(err);
+                next(new ErrorResponse("Problem with file upload", 500));
+            }
+
+            await Item.findByIdAndUpdate(req.params.id, { image: file.name });
+
+            res.status(200).json({
+                success: true,
+                data: file.name
+            });
         }
-
-        await Item.findByIdAndUpdate(req.params.id, { image: file.name });
-
-        res.status(200).json({
-            success: true,
-            data: file.name
-        });
-    });
+    );
 });
