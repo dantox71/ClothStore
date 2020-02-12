@@ -1386,6 +1386,45 @@ input[type='file'] {
     color: white;
 }
 
+.not-found {
+    margin: 15rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 26px;
+    text-align: center;
+}
+
+.not-found p {
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 3rem;
+    padding: 1rem;
+    border: 4px solid #4f232a;
+    border-radius: 50%;
+    animation-name: rotate1;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-emphasis: center;
+}
+
+@keyframes rotate1 {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
 @media(max-width:900px) {
     .modal-content {
         width: 70%;

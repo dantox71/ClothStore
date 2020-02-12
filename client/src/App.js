@@ -14,6 +14,7 @@ import Account from "./components/account/Account";
 import EditAccount from "./components/account/EditAccount";
 import EditItem from "./components/items/EditItem";
 import Cart from "./components/items/Cart";
+import NotFound from "./components/layout/NotFound";
 import { loadUser } from "./actions/auth";
 
 const App = () => {
@@ -27,7 +28,7 @@ const App = () => {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/me" component={Account} />
@@ -36,6 +37,7 @@ const App = () => {
           <Route exact path="/edit-account" component={EditAccount} />
           <Route exact path="/edit-item/:itemId" component={EditItem} />
           <Route exact path="/cart" component={Cart} />
+          <Route component={NotFound} />
         </Switch>
         <Footer />
         <Alerts />
