@@ -27,7 +27,7 @@ const Register = ({
 
   //Redirect if authenticated
   if (isAuthenticated) {
-    return <Redirect to="/e" />;
+    return <Redirect to="/" />;
   }
 
   const { name, email, password, password2 } = formData;

@@ -47,49 +47,60 @@ const ItemsOnSell = ({
         ) : (
           <Fragment>
             <div className="container">
-              {items.map(item => (
-                <div className="item" key={item._id}>
-                  <img
-                    src={`${process.env.PUBLIC_URL}/uploads/images/items/${item.image}`}
-                    alt=""
-                    className="item-img"
-                  />
-                  <div className="item-menu">
-                    <Link to="/cart" onClick={() => onAddItemToCart(item._id)}>
-                      <img src={cart} alt="Cart Icon" />
-                    </Link>
-                    <div className="star-rating">
-                      {itemStarRating(item.averageRating)}
-                    </div>
-                    <p className="text-gray">
-                      Average Ratings:
-                      <span className="text-bold">
-                        {item.averageRating
-                          ? item.averageRating
-                          : "No ratings yet"}
-                      </span>
-                    </p>
-                  </div>
-                  <div className="item-info">
-                    <h1> {item.name} </h1> <p> {item.description} </p>
-                    <p>
-                      Category:
-                      <span className="text-bold"> {item.category} </span>
-                    </p>
-                    <p>
-                      Price: <span className="text-bold"> $ {item.price} </span>
-                    </p>
-                    <div className="item-buttons">
+              {items.length > 0 ? (
+                items.map(item => (
+                  <div className="item" key={item._id}>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/uploads/images/items/${item.image}`}
+                      alt=""
+                      className="item-img"
+                    />
+                    <div className="item-menu">
                       <Link
-                        to={`items/${item._id}`}
-                        className="btn btn-primary"
+                        to="/cart"
+                        onClick={() => onAddItemToCart(item._id)}
                       >
-                        Read More
+                        <img src={cart} alt="Cart Icon" />
                       </Link>
+                      <div className="star-rating">
+                        {itemStarRating(item.averageRating)}
+                      </div>
+                      <p className="text-gray">
+                        Average Ratings:
+                        <span className="text-bold">
+                          {item.averageRating
+                            ? item.averageRating
+                            : "No ratings yet"}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="item-info">
+                      <h1> {item.name} </h1> <p> {item.description} </p>
+                      <p>
+                        Category:
+                        <span className="text-bold"> {item.category} </span>
+                      </p>
+                      <p>
+                        Price:{" "}
+                        <span className="text-bold"> $ {item.price} </span>
+                      </p>
+                      <div className="item-buttons">
+                        <Link
+                          to={`items/${item._id}`}
+                          className="btn btn-primary"
+                        >
+                          Read More
+                        </Link>
+                      </div>
                     </div>
                   </div>
+                ))
+              ) : (
+                <div>
+                  <h1>Not found </h1> <br />
+                  <p>We haven't found results for Your query</p>
                 </div>
-              ))}
+              )}
             </div>
           </Fragment>
         )}
