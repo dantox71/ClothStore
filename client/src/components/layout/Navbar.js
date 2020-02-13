@@ -1,12 +1,21 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import cart from "./cart.svg";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
 
-const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
+const Navbar = ({
+  cart: { items },
+  auth: { isAuthenticated, user, loading },
+  logout
+}) => {
+  useEffect(() => {
+    setCartLength(items.length);
+  }, [items]);
+
   const [menuOpened, toggleMenu] = useState(false);
+  const [cartLength, setCartLength] = useState(0);
 
   const onLogout = () => {
     if (
@@ -62,7 +71,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
             onClick={() => toggleMenu(!menuOpened)}
           >
             <img src={cart} alt="Cart Icon" />
-            <span className="item-counter">{user && user.cart.length}</span>
+            <span className="item-counter">{cartLength}</span>
           </Link>
         )}
       </li>
@@ -119,7 +128,8 @@ Navbar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  cart: state.cart
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);
