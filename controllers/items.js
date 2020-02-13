@@ -76,40 +76,27 @@ exports.addItem = asyncHandler(async(req, res, next) => {
 exports.updateItem = asyncHandler(async(req, res, next) => {
     let item = await Item.findById(req.params.id);
 
-    const fieldsToUpdate = {};
-
-    if (req.body.name) {
-        fieldsToUpdate.name = req.body.name;
-    }
-    if (req.body.description) {
-        fieldsToUpdate.description = req.body.description;
-    }
-    if (req.body.category) {
-        fieldsToUpdate.category = req.body.category;
-    }
-    if (req.body.price) {
-        fieldsToUpdate.price = req.body.price;
-    }
-
     if (!item) {
         return next(
             new ErrorResponse(`Item with id of ${req.params.id} not found`, 404)
         );
     }
 
-    //Check if user haven't changed anything
-    if (Object.entries(fieldsToUpdate).length === 0) {
-        new ErrorResponse("Change someting", 400);
+    //Don't allow to update item if it's in someone's cart
+    if (item.incart) {
+        return next(
+            new ErrorResponse(
+                "You can't update this item because it's in someone's cart"
+            )
+        );
     }
-
-    console.log(fieldsToUpdate);
 
     //Make sure that authorized to update item
     if (item.user.toString() !== req.user.id) {
         return next(new ErrorResponse("Not authorzied to update this item", 401));
     }
 
-    item = await Item.findByIdAndUpdate(req.params.id, fieldsToUpdate, {
+    item = await Item.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
     });
