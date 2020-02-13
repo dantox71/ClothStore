@@ -3,10 +3,11 @@ import { Redirect, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Loader from "../layout/Loader";
 import { connect } from "react-redux";
-import { getCartItems, buyItemsInCart } from "../../actions/cart";
+import { getCartItems, buyItemsInCart, clearCart } from "../../actions/cart";
 import CartItem from "./CartItem";
 
 const Cart = ({
+  clearCart,
   getCartItems,
   buyItemsInCart,
   cart: { items, loading },
@@ -27,8 +28,14 @@ const Cart = ({
   }
 
   const onBuyCartItems = () => {
-    if (window.confirm("Are you sure you want to buy items in Your cart?")) {
+    if (window.confirm("Are You sure You want to buy items in Your cart?")) {
       buyItemsInCart();
+    }
+  };
+
+  const onClearCart = () => {
+    if (window.confirm("Are You sure You want to clear Your cart?")) {
+      clearCart();
     }
   };
 
@@ -53,6 +60,9 @@ const Cart = ({
           <Link to="/cart" className="btn btn-primary" onClick={onBuyCartItems}>
             Buy
           </Link>
+          <Link to="/cart" className="btn btn-primary " onClick={onClearCart}>
+            Clear Cart
+          </Link>
         </div>
       </div>
     </section>
@@ -62,6 +72,7 @@ const Cart = ({
 Cart.propTypes = {
   getCartItems: PropTypes.func.isRequired,
   buyItemsInCart: PropTypes.func.isRequired,
+  clearCart: PropTypes.func.isRequired,
   cart: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -71,4 +82,8 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getCartItems, buyItemsInCart })(Cart);
+export default connect(mapStateToProps, {
+  getCartItems,
+  buyItemsInCart,
+  clearCart
+})(Cart);
