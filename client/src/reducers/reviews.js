@@ -1,4 +1,8 @@
-import { GET_REVIEWS_FOR_ITEM, ADD_REVIEW } from "../actions/types";
+import {
+    GET_REVIEWS_FOR_ITEM,
+    ADD_REVIEW,
+    REMOVE_REVIEW
+} from "../actions/types";
 
 const initialState = {
     reviews: [],
@@ -22,19 +26,15 @@ export default (state = initialState, action) => {
                 reviews: [payload, ...state.reviews]
             };
 
+        case REMOVE_REVIEW:
+            {
+                return {
+                    ...state,
+                    reviews: state.reviews.filter(review => review._id !== payload)
+                };
+            }
+
         default:
             return state;
-
-
-
-
-
-
-
-
-
-
-
-
     }
 };

@@ -2,8 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import "moment-timezone";
+import { connect } from "react-redux";
+import { removeReview } from "../../actions/reviews";
 
-const ReviewItem = ({ review }) => {
+const ReviewItem = ({ removeReview, review, auth: { user } }) => {
   const reviewStarRating = rate => {
     let elements = [];
 
@@ -12,6 +14,12 @@ const ReviewItem = ({ review }) => {
     }
 
     return elements;
+  };
+
+  const onReviewDelete = reviewId => {
+    if (window.confirm("Are You sure You want to delete this review?")) {
+      removeReview(reviewId);
+    }
   };
 
   return (
@@ -36,12 +44,28 @@ const ReviewItem = ({ review }) => {
       </div>
       <p className="review-description">{review.text}</p>
       <div className="review-star-rating">{reviewStarRating(review.rate)}</div>
+
+      {user && review.user._id === user._id && (
+        <a
+          href="#!"
+          className="delete-review"
+          onClick={() => onReviewDelete(review._id)}
+        >
+          <i class="fa fa-times"></i>
+        </a>
+      )}
     </div>
   );
 };
 
 ReviewItem.propTypes = {
-  review: PropTypes.object.isRequired
+  review: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  removeReview: PropTypes.func.isRequired
 };
 
-export default ReviewItem;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { removeReview })(ReviewItem);
