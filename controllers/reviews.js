@@ -37,6 +37,10 @@ exports.addReview = asyncHandler(async(req, res, next) => {
     req.body.item = req.params.itemId;
 
     const item = await Item.findById(req.params.itemId);
+    const reviews = await Review.find({
+        user: req.user.id,
+        item: item._id
+    });
 
     if (!item) {
         return next(
@@ -49,6 +53,11 @@ exports.addReview = asyncHandler(async(req, res, next) => {
         return next(
             new ErrorResponse("You can't add review to your own item", 400)
         );
+    }
+
+    //User already added review to this item
+    if (reviews.length > 0) {
+        return next(new ErrorResponse("You can add only 1 review per item", 400));
     }
 
     let review = await Review.create(req.body);
