@@ -16,9 +16,9 @@ const ReviewItem = ({ removeReview, review, auth: { user } }) => {
     return elements;
   };
 
-  const onReviewDelete = reviewId => {
+  const onReviewDelete = (itemId, reviewId) => {
     if (window.confirm("Are You sure You want to delete this review?")) {
-      removeReview(reviewId);
+      removeReview(itemId, reviewId);
     }
   };
 
@@ -49,9 +49,9 @@ const ReviewItem = ({ removeReview, review, auth: { user } }) => {
         <a
           href="#!"
           className="delete-review"
-          onClick={() => onReviewDelete(review._id)}
+          onClick={() => onReviewDelete(review.item, review._id)}
         >
-          <i class="fa fa-times"></i>
+          <i className="fa fa-times"></i>
         </a>
       )}
     </div>

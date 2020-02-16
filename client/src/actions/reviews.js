@@ -1,6 +1,8 @@
 import { ADD_REVIEW, GET_REVIEWS_FOR_ITEM, REMOVE_REVIEW } from "./types";
 import axios from "axios";
 import { setAlert } from "./alerts";
+import { getSingleItem } from './items';
+
 
 export const getItemReviews = itemId => async dispatch => {
     try {
@@ -36,6 +38,13 @@ export const addReview = (itemId, formData) => async dispatch => {
             payload: res.data.data
         });
 
+
+
+        dispatch(getSingleItem(itemId));
+
+
+
+
         dispatch(setAlert("Review added"));
     } catch (err) {
         const error = err.response.data.error;
@@ -53,7 +62,7 @@ export const addReview = (itemId, formData) => async dispatch => {
     }
 };
 
-export const removeReview = reviewId => async dispatch => {
+export const removeReview = (itemId, reviewId) => async dispatch => {
     const config = {
         headers: {
             "Content-Type": "application/json"
@@ -61,12 +70,17 @@ export const removeReview = reviewId => async dispatch => {
     };
 
     try {
-        const res = await axios.delete(`/api/v1/reviews/${reviewId}`, config);
+        await axios.delete(`/api/v1/reviews/${reviewId}`, config);
 
         dispatch({
             type: REMOVE_REVIEW,
             payload: reviewId
         });
+
+
+        dispatch(getSingleItem(itemId));
+
+
 
         dispatch(setAlert("Review removed"));
     } catch (err) {
