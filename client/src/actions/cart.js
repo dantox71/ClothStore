@@ -6,6 +6,9 @@ import {
 } from "./types";
 import axios from "axios";
 import { setAlert } from "./alerts";
+import { loadUser } from './auth';
+
+
 
 export const getCartItems = () => async dispatch => {
     try {
@@ -88,6 +91,9 @@ export const buyItemsInCart = () => async dispatch => {
 
     try {
         await axios.post("/api/v1/cart/buy", config);
+
+        //Load new user data (amount of money changed)
+        dispatch(loadUser());
 
         //Clear cart
         dispatch({
