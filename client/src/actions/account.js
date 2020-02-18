@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import { setAlert } from "./alerts";
 import store from "../store";
+import { clearCart } from './cart';
 
 export const editAccountData = formData => async dispatch => {
     const config = {
@@ -91,6 +92,12 @@ export const uploadUserPhoto = formData => async dispatch => {
 
 export const deleteAccount = () => async dispatch => {
     try {
+
+
+        //Clear items in deleted user's cart
+        dispatch(clearCart());
+
+
         //Remove account
         await axios.delete("api/v1/auth/delete");
 
@@ -103,9 +110,17 @@ export const deleteAccount = () => async dispatch => {
         dispatch({
             type: CLEAR_ITEMS
         });
+
+
+
+
         dispatch({
             type: CLEAR_ITEM
         });
+
+
+
+
 
         store.dispatch(setAlert("Account has been deleted"));
     } catch (err) {
