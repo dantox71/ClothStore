@@ -86,7 +86,14 @@ const Navbar = ({
   return (
     <nav id="main-navigation" className={menuOpened ? "opened" : ""}>
       <div className="container">
-        <Link to="/">
+        <Link
+          to="/"
+          onClick={() => {
+            if (menuOpened) {
+              toggleMenu(!menuOpened);
+            }
+          }}
+        >
           <h1 className="brand">
             {" "}
             <span className="text-bold">Cloth</span>
@@ -100,7 +107,11 @@ const Navbar = ({
           {user && (
             <Fragment>
               <li>
-                <Link to="/cart" className="shopping-cart-link">
+                <Link
+                  to="/cart"
+                  onClick={() => toggleMenu(!menuOpened)}
+                  className="shopping-cart-link"
+                >
                   <span className="item-counter"> {user.cart.length} </span>
                   <img src={cart} alt="Cart Icon" />
                 </Link>
