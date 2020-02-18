@@ -63,17 +63,18 @@ const SingleItem = ({
                   </Link>
 
                   <div className="star-rating">
-                    {itemStarRating(item.averageRating)}
+                    {reviews.length > 0 && itemStarRating(item.averageRating)}
                   </div>
 
-                  <p className="text-gray">{item.averageRating}</p>
                   <p className="text-gray">
-                    {reviews.length}
+                    {reviews.length > 0 && item.averageRating}
+                  </p>
+                  <p className="text-gray">
                     {reviews.length > 1
-                      ? " reviews"
+                      ? `${reviews.length} reviews`
                       : reviews.length === 1
-                      ? " review"
-                      : " No review"}
+                      ? `${reviews.length} review`
+                      : " No reviews"}
                   </p>
                 </div>
               </div>
@@ -104,7 +105,8 @@ const SingleItem = ({
 SingleItem.propTypes = {
   getSingleItem: PropTypes.func.isRequired,
   addItemToCart: PropTypes.func.isRequired,
-  items: PropTypes.object.isRequired
+  items: PropTypes.object.isRequired,
+  reviews: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
