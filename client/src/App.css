@@ -108,7 +108,7 @@
     }
 }
 
-@media (max-width: 660px) {
+@media (max-width: 300px) {
     .alerts {
         position: fixed;
         right: 5%;
@@ -119,10 +119,10 @@
 
 @media (max-width: 400px) {
     .alert {
-        width: 90%;
-        margin: auto;
-        font-size: 10px;
-        top: -100%;
+        padding: 0.3rem 1.2rem;
+        font-size: 12px;
+        letter-spacing: 1px;
+        width: 280px;
     }
 }
 
