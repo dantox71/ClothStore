@@ -77,6 +77,11 @@ exports.deleteUser = asyncHandler(async(req, res, next) => {
         user: user._id
     });
 
+
+    await Review.deleteMany({
+        user: user._id
+    })
+
     await user.delete();
 
     res.status(200).json({
