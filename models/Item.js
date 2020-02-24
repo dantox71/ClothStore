@@ -10,8 +10,8 @@ const ItemSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, "Please add item description"],
-        min: 8,
-        max: 80
+        minlength: [8, "Item description should be at least 8 characters long"],
+        maxlength: [80, "Item description should be at most 80 characters long"]
     },
 
     category: {

@@ -27,8 +27,8 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter password"],
         select: false,
-        min: 6,
-        max: 21
+        minlength: [6, "Minimum password length is 6 characters"],
+        maxlength: [21, "Maximum password length is 21 characters"]
     },
 
     image: {
@@ -45,8 +45,8 @@ const UserSchema = new mongoose.Schema({
         description: {
             type: String,
             required: [true, "Please add item description"],
-            min: 8,
-            max: 80
+            minlength: [8, "Minimum description length should be at least 8 characters"],
+            maxlength: [80, "Maximum description length should be at most 80 characters"]
         },
 
         category: {

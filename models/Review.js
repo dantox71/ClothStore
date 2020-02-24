@@ -4,8 +4,8 @@ const ReviewSchema = new mongoose.Schema({
     text: {
         type: String,
         required: [true, "Please add some text"],
-        min: [8, "Review too short. Enter at least 8 characters"],
-        max: [50, "Review too long. Enter maximum 50 characters"]
+        minlength: [8, "Review should be at least 8 characters long"],
+        maxlength: [50, "Review should be at most 50 characters long"]
     },
 
     rate: {
@@ -58,7 +58,8 @@ ReviewSchema.post("save", function() {
     this.constructor.getAverageRating(this.item);
 });
 
-ReviewSchema.pre("remove", function() {
+ReviewSchema.post("remove", function() {
+    console.log("Calculating average rating...");
     this.constructor.getAverageRating(this.item);
 });
 
