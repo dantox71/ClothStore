@@ -1,5 +1,5 @@
 _data
-# config/config.env
+config/config.env
 # config/config.env.env
 node_modules
 ./models/User.js
