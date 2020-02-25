@@ -23,11 +23,13 @@ const UserInfo = ({ uploadUserPhoto, deleteAccount, auth: { user } }) => {
   };
 
   const onPhotoUpload = e => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", image);
+    window.alert("I'm still working on this feature....");
 
-    uploadUserPhoto(formData);
+    e.preventDefault();
+    // const formData = new FormData();
+    // formData.append("file", image);
+
+    // uploadUserPhoto(formData);
   };
 
   return (

@@ -26,9 +26,13 @@ const UserItems = ({ editItem, getUserItems, items: { items } }) => {
     }
   };
 
+  const onItemPhotoUpload = () => {
+    window.alert("I'm still working on this feature....");
+  };
+
   return (
     <div className="magazine">
-      <h1>Items in your magazine:</h1>
+      <h1> Items in your magazine: </h1>
       {items.length > 0 ? (
         items.map(item => (
           <div className="item" key={item._id}>
@@ -42,32 +46,30 @@ const UserItems = ({ editItem, getUserItems, items: { items } }) => {
                   <i className="far fa-images fa-2x"> </i>
                   <input type="file" name="file" />
                 </label>
-                <a href="#!" className="btn btn-primary">
+                <a
+                  href="#!"
+                  className="btn btn-primary"
+                  onClick={onItemPhotoUpload}
+                >
                   Click To Upload
                 </a>
               </div>
             </div>
-
             <div className="item-right">
-              <h2>{item.name}</h2>
-              <p>{item.description}</p>
-
+              <h2> {item.name} </h2> <p> {item.description} </p>
               <p>
-                Average Ratings: <span className="text-bold">4.0</span>
+                Average Ratings: <span className="text-bold"> 4.0 </span>
               </p>
               <p>
-                Number of Ratings: <span className="text-bold">5</span>
+                Number of Ratings: <span className="text-bold"> 5 </span>
               </p>
-
               <p>
-                Price: <span className="text-bold">{`$${item.price}`}</span>
+                Price: <span className="text-bold"> {`$${item.price}`} </span>
               </p>
-
               <div className="item-buttons">
                 <Link to={`/edit-item/${item._id}`} className="btn btn-primary">
                   Edit
                 </Link>
-
                 <a
                   href="#!"
                   className="btn btn-primary"
@@ -84,7 +86,7 @@ const UserItems = ({ editItem, getUserItems, items: { items } }) => {
           </div>
         ))
       ) : (
-        <p className="text-sm mb-3">You have no items </p>
+        <p className="text-sm mb-3"> You have no items </p>
       )}
     </div>
   );
