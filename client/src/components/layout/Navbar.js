@@ -1,21 +1,17 @@
 import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
-import cart from "./cart.svg";
+import cartIcon from "./cart.svg";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
+import { getCartItems } from "../../actions/cart";
 
-const Navbar = ({
-  cart: { items },
-  auth: { isAuthenticated, user, loading },
-  logout
-}) => {
+const Navbar = ({ auth: { isAuthenticated, user, loading, cart }, logout }) => {
   useEffect(() => {
-    setCartLength(items.length);
-  }, [items]);
+    getCartItems();
+  }, []);
 
   const [menuOpened, toggleMenu] = useState(false);
-  const [cartLength, setCartLength] = useState(0);
 
   const onLogout = () => {
     if (
@@ -70,8 +66,8 @@ const Navbar = ({
             className="shopping-cart-link"
             onClick={() => toggleMenu(!menuOpened)}
           >
-            <img src={cart} alt="Cart Icon" />
-            <span className="item-counter">{cartLength}</span>
+            <img src={cartIcon} alt="Cart Icon" />
+            <span className="item-counter">{cart.length}</span>
           </Link>
         )}
       </li>
@@ -135,12 +131,12 @@ const Navbar = ({
 
 Navbar.propTypes = {
   auth: PropTypes.object.isRequired,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  getCartItems: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  cart: state.cart
+  auth: state.auth
 });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, getCartItems })(Navbar);

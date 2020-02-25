@@ -100,7 +100,7 @@ export const buyItemsInCart = () => async dispatch => {
             type: CLEAR_CART
         });
 
-        dispatch(setAlert("Items from cart has been bought"));
+        dispatch(setAlert("Items from cart have been bought"));
     } catch (err) {
         const error = err.response.data.error;
 

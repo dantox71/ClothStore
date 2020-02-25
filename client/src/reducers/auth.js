@@ -8,7 +8,11 @@ import {
     CLEAR_ERROR,
     AUTH_FAIL,
     EDIT_ACCOUNT_DATA,
-    UPLOAD_USER_PHOTO
+    UPLOAD_USER_PHOTO,
+    ADD_ITEM_TO_CART,
+    REMOVE_ITEM_FROM_CART,
+    GET_CART_ITEMS,
+    CLEAR_CART
 } from "../actions/types";
 
 const initialState = {
@@ -16,7 +20,8 @@ const initialState = {
     token: localStorage.getItem("token"),
     loading: true,
     user: null,
-    error: null
+    error: null,
+    cart: []
 };
 
 export default (state = initialState, action) => {
@@ -73,6 +78,40 @@ export default (state = initialState, action) => {
                 ...state,
                 error: null
             };
+
+
+
+            /* USER CART */
+        case GET_CART_ITEMS:
+            return {
+                ...state,
+                cart: payload,
+                loading: false
+            }
+
+
+        case ADD_ITEM_TO_CART:
+            return {
+                ...state,
+                cart: [...state.cart, payload]
+            }
+
+        case REMOVE_ITEM_FROM_CART:
+            return {
+                ...state,
+                cart: state.cart.filter(item => item._id !== payload)
+            }
+
+
+
+
+        case CLEAR_CART:
+            return {
+                ...state,
+                cart: []
+            }
+
+
 
         default:
             return state;
