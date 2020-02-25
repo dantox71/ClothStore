@@ -10,8 +10,7 @@ const Cart = ({
   clearCart,
   getCartItems,
   buyItemsInCart,
-  cart: { items, loading },
-  auth: { isAuthenticated }
+  auth: { isAuthenticated, cart, loading }
 }) => {
   useEffect(() => {
     getCartItems();
@@ -42,20 +41,18 @@ const Cart = ({
   return (
     <section id="cart">
       <div className="container">
-        <h1>Items In Your Cart</h1>
-
+        <h1> Items In Your Cart </h1>
         {loading ? (
           <Loader />
-        ) : items.length > 0 ? (
-          items.map(item => <CartItem key={item._id} item={item} />)
+        ) : cart.length > 0 ? (
+          cart.map(cartItem => <CartItem key={cartItem._id} item={cartItem} />)
         ) : (
-          <p>Your cart is empty</p>
+          <p> Your cart is empty </p>
         )}
-
         <div className="cart-bottom">
           <p>
-            Total:{" "}
-            <span className="text-bold">${calculateTotalToPay(items)}</span>
+            Total:
+            <span className="text-bold"> $ {calculateTotalToPay(cart)} </span>
           </p>
           <Link to="/cart" className="btn btn-primary" onClick={onBuyCartItems}>
             Buy
@@ -73,12 +70,10 @@ Cart.propTypes = {
   getCartItems: PropTypes.func.isRequired,
   buyItemsInCart: PropTypes.func.isRequired,
   clearCart: PropTypes.func.isRequired,
-  cart: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  cart: state.cart,
   auth: state.auth
 });
 

@@ -15,6 +15,7 @@ const ItemsOnSell = ({
   editItem,
   addItemToCart,
   items: { items, loading },
+  reviews: { reviews },
   auth: { user }
 }) => {
   useEffect(() => {
@@ -63,12 +64,14 @@ const ItemsOnSell = ({
                         <img src={cart} alt="Cart Icon" />
                       </Link>
                       <div className="star-rating">
-                        {itemStarRating(item.averageRating)}
+                        {(reviews.length > 0) &
+                          itemStarRating(item.averageRating)}
                       </div>
+
                       <p className="text-gray">
                         Average Ratings:
                         <span className="text-bold">
-                          {item.averageRating
+                          {reviews.length > 0
                             ? item.averageRating
                             : "No ratings yet"}
                         </span>
@@ -116,12 +119,14 @@ ItemsOnSell.propTypes = {
   editItem: PropTypes.func.isRequired,
   addItemToCart: PropTypes.func.isRequired,
   items: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  reviews: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   items: state.items,
-  auth: state.auth
+  auth: state.auth,
+  reviews: state.reviews
 });
 
 export default connect(mapStateToProps, {
