@@ -82,7 +82,7 @@ exports.deleteUser = asyncHandler(async(req, res, next) => {
         user: user._id
     })
 
-    await user.delete();
+    user = await User.findByIdAndDelete(req.user.id);
 
     res.status(200).json({
         success: true,
