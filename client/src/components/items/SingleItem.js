@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getSingleItem } from "../../actions/items";
 import Loader from "../layout/Loader";
+import { setAlert } from "../../actions/alerts";
 import cart from "../layout/cart.svg";
 import AddItemReview from "../reviews/AddItemReview";
 import ItemReviews from "../reviews/ItemReviews";
@@ -11,8 +12,10 @@ import { addItemToCart } from "../../actions/cart";
 
 const SingleItem = ({
   addItemToCart,
+  setAlert,
   match,
   getSingleItem,
+  auth: { isAuthenticated },
   items: { item, loading },
   reviews: { reviews }
 }) => {
@@ -34,7 +37,11 @@ const SingleItem = ({
     if (
       window.confirm("Are you sure that you want to add this item to cart?")
     ) {
-      addItemToCart(itemId);
+      if (isAuthenticated) {
+        addItemToCart(itemId);
+      } else {
+        setAlert("You have to be logged in to add item to cart");
+      }
     }
   };
 
@@ -84,13 +91,13 @@ const SingleItem = ({
                 <p>
                   Price: <span className="text-bold">${item.price}</span>
                 </p>
-                <Link
-                  to="/cart"
+                <a
+                  href="#!"
                   className="btn btn-primary"
                   onClick={() => onAddItemToCart(item._id)}
                 >
                   Add To Cart
-                </Link>
+                </a>
               </div>
             </div>
             <AddItemReview itemId={item._id} />
@@ -105,15 +112,20 @@ const SingleItem = ({
 SingleItem.propTypes = {
   getSingleItem: PropTypes.func.isRequired,
   addItemToCart: PropTypes.func.isRequired,
+  showAlert: PropTypes.func.isRequired,
   items: PropTypes.object.isRequired,
-  reviews: PropTypes.object.isRequired
+  reviews: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   items: state.items,
+  auth: state.auth,
   reviews: state.reviews
 });
 
-export default connect(mapStateToProps, { getSingleItem, addItemToCart })(
-  SingleItem
-);
+export default connect(mapStateToProps, {
+  getSingleItem,
+  setAlert,
+  addItemToCart
+})(SingleItem);

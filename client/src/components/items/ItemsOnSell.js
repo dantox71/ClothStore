@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getItemsOnSell } from "../../actions/items";
+import { setAlert } from "../../actions/alerts";
 import cart from "../layout/cart.svg";
 import { editItem } from "../../actions/items";
 import Loader from "../layout/Loader";
@@ -14,9 +15,10 @@ const ItemsOnSell = ({
   getItemsOnSell,
   editItem,
   addItemToCart,
+  setAlert,
   items: { items, loading },
   reviews: { reviews },
-  auth: { user }
+  auth: { user, isAuthenticated }
 }) => {
   useEffect(() => {
     getItemsOnSell();
@@ -36,7 +38,11 @@ const ItemsOnSell = ({
     if (
       window.confirm("Are you sure that you want to add this item to cart?")
     ) {
-      addItemToCart(itemId);
+      if (isAuthenticated) {
+        addItemToCart(itemId);
+      } else {
+        setAlert("You have to be logged in to add item to cart");
+      }
     }
   };
 
@@ -57,12 +63,9 @@ const ItemsOnSell = ({
                       className="item-img"
                     />
                     <div className="item-menu">
-                      <Link
-                        to="/cart"
-                        onClick={() => onAddItemToCart(item._id)}
-                      >
+                      <a href="#!" onClick={() => onAddItemToCart(item._id)}>
                         <img src={cart} alt="Cart Icon" />
-                      </Link>
+                      </a>
                       <div className="star-rating">
                         {(reviews.length > 0) &
                           itemStarRating(item.averageRating)}
@@ -118,6 +121,7 @@ ItemsOnSell.propTypes = {
   getItemsOnSell: PropTypes.func.isRequired,
   editItem: PropTypes.func.isRequired,
   addItemToCart: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
   items: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   reviews: PropTypes.object.isRequired
@@ -132,5 +136,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getItemsOnSell,
   addItemToCart,
-  editItem
+  editItem,
+  setAlert
 })(ItemsOnSell);

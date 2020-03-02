@@ -67,7 +67,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading, cart }, logout }) => {
             onClick={() => toggleMenu(!menuOpened)}
           >
             <img src={cartIcon} alt="Cart Icon" />
-            <span className="item-counter">{cart.length}</span>
+            <span className="item-counter"> {cart.length} </span>
           </Link>
         )}
       </li>
@@ -91,9 +91,7 @@ const Navbar = ({ auth: { isAuthenticated, user, loading, cart }, logout }) => {
           }}
         >
           <h1 className="brand">
-            {" "}
-            <span className="text-bold">Cloth</span>
-            <i>Store</i>
+            <span className="text-bold"> Cloth </span> <i> Store </i>
           </h1>
         </Link>
         <ul className="nav-list">
@@ -105,11 +103,15 @@ const Navbar = ({ auth: { isAuthenticated, user, loading, cart }, logout }) => {
               <li>
                 <Link
                   to="/cart"
-                  onClick={() => toggleMenu(!menuOpened)}
+                  onClick={() => {
+                    if (menuOpened) {
+                      toggleMenu(!menuOpened);
+                    }
+                  }}
                   className="shopping-cart-link"
                 >
-                  <span className="item-counter"> {user.cart.length} </span>
-                  <img src={cart} alt="Cart Icon" />
+                  <span className="item-counter"> {cart.length} </span>
+                  <img src={cartIcon} alt="Cart Icon" />
                 </Link>
               </li>
             </Fragment>
