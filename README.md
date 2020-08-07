@@ -55,7 +55,7 @@ And finally you can run development environment:
 
 ## Live
 
-Here you can find my application : [@SocialNetwork](http://clothstoree.herokuapp.com)
+Here you can find my application : [@ClothStoree](http://clothstoree.herokuapp.com)
 
 ## Contact
 
