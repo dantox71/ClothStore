@@ -1,69 +1,67 @@
 import React from "react";
 
-const Footer = props => {
+const Footer = (props) => {
   return (
-    <footer id="main-footer">
-      <div className="footer-top">
-        <div className="container">
-          <div className="footer-top-wrapper">
-            <div className="contact">
+    <footer id='main-footer'>
+      <div className='footer-top'>
+        <div className='container'>
+          <div className='footer-top-wrapper'>
+            <div className='contact'>
               <h2>Our Contact Information</h2>
               <div>
                 <p>
-                  <i className="fa fa-envelope"></i> daniellagowskii@gmail.com
+                  <i className='fa fa-envelope'></i> daniellagowskii@gmail.com
                 </p>
 
                 <p>
-                  <i className="fa fa-phone"></i>48+ 231 534 345
+                  <i className='fa fa-phone'></i>48+ 231 534 345
                 </p>
               </div>
             </div>
-            <form className="newsletter">
+            <form className='newsletter'>
               <h2>Join to Our newsletter</h2>
 
-              <div className="newsletter-inputs">
+              <div className='newsletter-inputs'>
                 <input
-                  type="email"
-                  name="newsletter-email"
-                  placeholder="Your Email Adress"
+                  type='email'
+                  name='newsletter-email'
+                  placeholder='Your Email Adress'
                 />
 
-                <button type="submit" className="newsletter-btn">
-                  Send <i className="fa fa-send-o"></i>
+                <button type='submit' className='newsletter-btn'>
+                  Send <i className='fa fa-send-o'></i>
                 </button>
               </div>
             </form>
 
-            <div className="social-media">
+            <div className='social-media'>
               <h2>Check Out Our Social Media</h2>
-              <div className="social-media-links">
-                <a href="#!">
-                  <i className="fab fa-facebook"></i>
-                </a>
-                <a href="#!">
-                  <i className="fab fa-twitter"></i>
-                </a>
-
-                <a href="#!">
-                  <i className="fab fa-instagram"></i>
+              <div className='social-media-links'>
+                <a
+                  href='https://twitter.com/Daniel41477529'
+                  target='_blank'
+                  rel='noopener noreferrer'>
+                  <i className='fab fa-twitter'></i>
                 </a>
 
-                <a href="#!">
-                  <i className="fab fa-linkedin"></i>
+                <a
+                  href='https://www.linkedin.com/in/daniel-lagowski-b9b1a2195/'
+                  target='_blank'
+                  rel='noopener noreferrer'>
+                  ><i className='fab fa-linkedin'></i>
                 </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="footer-bottom">
+      <div className='footer-bottom'>
         <p>
           Created By
           <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="http://daniellagowski.netlify.com"
-          >
+            target='_blank'
+            rel='noopener noreferrer'
+            href='http://daniellagowski.netlify.com'>
             {" "}
             Daniel Łagowski.{" "}
           </a>
