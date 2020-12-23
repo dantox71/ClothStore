@@ -19,17 +19,18 @@ const UserInfo = ({ uploadUserPhoto, deleteAccount, auth: { user } }) => {
   };
 
   const onPhotoChange = (e) => {
+    console.log(e.target);
     setImage(e.target.files[0]);
   };
 
   const onPhotoUpload = (e) => {
-    window.alert("I'm still working on this feature....");
+    // window.alert("I'm still working on this feature....");
 
     e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("file", image);
+    const formData = new FormData();
+    formData.append("file", image);
 
-    // uploadUserPhoto(formData);
+    uploadUserPhoto(formData);
   };
 
   return (

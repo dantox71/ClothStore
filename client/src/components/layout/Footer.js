@@ -48,7 +48,7 @@ const Footer = (props) => {
                   href='https://www.linkedin.com/in/daniel-lagowski-b9b1a2195/'
                   target='_blank'
                   rel='noopener noreferrer'>
-                  ><i className='fab fa-linkedin'></i>
+                  <i className='fab fa-linkedin'></i>
                 </a>
               </div>
             </div>
